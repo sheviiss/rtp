@@ -1,24 +1,42 @@
 import React from 'react';
-import Header from './components/header'; // 1. Import your new header!
-import Footer from './components/footer';
+// 1. IMPORT REACT ROUTER UTILITIES
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// 2. IMPORT LAYOUT COMPONENTS (Matching your friend's Capital Letters!)
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+// 3. IMPORT INDIVIDUAL PAGES
+import Home from './pages/Home';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
+import Outlets from './pages/Outlets';
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      
-      {/* 1. HEADER SECTION (Now active! 🎉) */}
-      <Header />
+    <BrowserRouter>
+      {/* Master Flex layout container to ensure footer sticks to the bottom */}
+      <div className="flex flex-col min-h-screen bg-white">
 
-      {/* 2. BODY / MAIN CONTENT SECTION */}
-      <main className="flex-grow flex flex-col items-center justify-center p-8 text-stone-400">
-        <p className="text-sm tracking-wide uppercase">Body Content Area</p>
-        <p className="text-xs mt-1 italic opacity-75">Ready for the home page sections later...</p>
-      </main>
+        {/* The persistent navigation header at the top of every page */}
+        <Header />
 
-      {/* 3. FOOTER SECTION */}
-      <Footer />
-      
-    </div>
+        {/* The Dynamic Main Content Area */}
+        <main className="flex-grow w-full">
+          <Routes>
+            {/* URL pathing matches: / , /about , /outlets , /contact */}
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/outlets" element={<Outlets />} />
+            <Route path="/contact" element={<ContactUs />} />
+          </Routes>
+        </main>
+
+        {/* The persistent footer at the bottom of every page */}
+        <Footer />
+
+      </div>
+    </BrowserRouter>
   );
 }
 
