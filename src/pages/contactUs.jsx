@@ -1,162 +1,113 @@
 import React from "react";
 
-import croissant from "../assets/croissant.png";
-import whisk from "../assets/whisk.png";
-import flower from "../assets/flower.png";
-
 function ContactUs() {
   return (
-    <section className="relative overflow-hidden bg-[#fffaf8] min-h-screen py-24 px-6">
+    // Fits the screen exactly under the header navbar, perfectly clean and minimal
+    <section className="relative overflow-hidden bg-[#fffaf8] h-[calc(100vh-80px)] w-full flex items-center justify-center px-6">
 
-      {/* CROISSANT */}
-      <img
-        src={croissant}
-        alt=""
-        className="absolute left-[-180px] bottom-[-20px] w-[780px] opacity-95 hidden lg:block pointer-events-none select-none"
-      />
+      {/* --- MAIN WRAPPER CONTENT --- */}
+      <div className="relative z-10 w-full max-w-3xl text-center flex flex-col items-center justify-center my-auto">
 
-      {/* WHISK */}
-      <img
-        src={whisk}
-        alt=""
-        className="absolute right-8 top-56 w-[190px] opacity-20 hidden lg:block pointer-events-none select-none"
-      />
-
-      {/* FLOWER */}
-      <img
-        src={flower}
-        alt=""
-        className="absolute right-0 bottom-10 w-[260px] opacity-15 hidden lg:block pointer-events-none select-none"
-      />
-
-      {/* SPARKLES */}
-      <div className="absolute top-40 left-16 text-pink-200 text-5xl hidden lg:block">
-        ✦
-      </div>
-
-      <div className="absolute top-52 right-72 text-pink-200 text-4xl hidden lg:block">
-        ✦
-      </div>
-
-      <div className="absolute bottom-20 right-80 text-pink-200 text-4xl hidden lg:block">
-        ✦
-      </div>
-
-      {/* MAIN CONTENT */}
-      <div className="relative z-10 max-w-6xl mx-auto text-center">
-
-        {/* TOP TEXT */}
-        <p className="text-[#e6007e] uppercase tracking-[0.35em] text-sm font-semibold mb-5">
+        {/* TOP SUB-TEXT */}
+        <p className="text-[#e6007e] uppercase tracking-[0.35em] text-xs font-bold mb-3 w-full text-center">
           We’d Love To Hear From You
         </p>
 
-        {/* HEART */}
-        <div className="flex items-center justify-center gap-4 mb-6">
-          <div className="w-14 h-[1px] bg-pink-200"></div>
+        {/* HEART SEPARATOR */}
+        <div className="flex items-center justify-center gap-4 mb-4 w-full">
+          <div className="w-14 h-[0.5px] bg-pink-200/70"></div>
           <span className="text-[#e6007e] text-sm">♥</span>
-          <div className="w-14 h-[1px] bg-pink-200"></div>
+          <div className="w-14 h-[0.5px] bg-pink-200/70"></div>
         </div>
 
         {/* TITLE */}
-        <h1 className="text-6xl md:text-7xl font-serif text-stone-900 mb-4">
+        <h1 className="text-[52px] font-serif font-light text-stone-900 leading-none mb-4 w-full text-center">
           Contact Us
         </h1>
 
-        {/* INFINITY */}
-        <div className="text-[#e6007e] text-3xl mb-6">
-          ∞
-        </div>
-
         {/* DESCRIPTION */}
-        <p className="text-stone-500 text-xl leading-relaxed mb-20">
-          Have a question, feedback, or just want to say hello?
-          <br />
-          We’re here to help!
+        <p className="text-stone-500 text-base leading-relaxed mb-10 max-w-md mx-auto font-light text-center">
+          Have a question, feedback, or just want to say hello? We’re here to help!
         </p>
 
-        {/* FORM */}
-        <form className="max-w-5xl mx-auto">
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14 text-left">
+        {/* --- BALANCED 2-COLUMN FORM --- */}
+        <form className="w-full mx-auto px-4 sm:px-8 space-y-7">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-14 gap-y-6 text-left">
 
             {/* FIRST NAME */}
-            <div>
-              <label className="block text-stone-700 text-base mb-4">
+            <div className="flex flex-col border-b border-stone-300/80 pb-1.5 focus-within:border-[#e6007e] transition-colors duration-200">
+              <label className="text-stone-500 text-sm font-normal mb-1">
                 First Name
               </label>
-
               <input
                 type="text"
-                className="w-full bg-transparent border-b border-stone-400 pb-4 outline-none focus:border-[#e6007e] transition text-lg"
+                className="w-full bg-transparent outline-none text-stone-800 text-lg py-0.5 font-light"
               />
             </div>
 
             {/* LAST NAME */}
-            <div>
-              <label className="block text-stone-700 text-base mb-4">
+            <div className="flex flex-col border-b border-stone-300/80 pb-1.5 focus-within:border-[#e6007e] transition-colors duration-200">
+              <label className="text-stone-500 text-sm font-normal mb-1">
                 Last Name
               </label>
-
               <input
                 type="text"
-                className="w-full bg-transparent border-b border-stone-400 pb-4 outline-none focus:border-[#e6007e] transition text-lg"
+                className="w-full bg-transparent outline-none text-stone-800 text-lg py-0.5 font-light"
               />
             </div>
 
             {/* EMAIL */}
-            <div>
-              <label className="block text-stone-700 text-base mb-4">
+            <div className="flex flex-col border-b border-stone-300/80 pb-1.5 focus-within:border-[#e6007e] transition-colors duration-200">
+              <label className="text-stone-500 text-sm font-normal mb-1">
                 Email (required)
               </label>
-
               <input
                 type="email"
-                className="w-full bg-transparent border-b border-stone-400 pb-4 outline-none focus:border-[#e6007e] transition text-lg"
+                required
+                className="w-full bg-transparent outline-none text-stone-800 text-lg py-0.5 font-light"
               />
             </div>
 
-            {/* PHONE */}
-            <div>
-              <label className="block text-stone-700 text-base mb-4">
+            {/* PHONE NUMBER */}
+            <div className="flex flex-col border-b border-stone-300/80 pb-1.5 focus-within:border-[#e6007e] transition-colors duration-200">
+              <label className="text-stone-500 text-sm font-normal mb-1">
                 Phone Number
               </label>
-
               <input
-                type="text"
-                className="w-full bg-transparent border-b border-stone-400 pb-4 outline-none focus:border-[#e6007e] transition text-lg"
+                type="tel"
+                className="w-full bg-transparent outline-none text-stone-800 text-lg py-0.5 font-light"
               />
             </div>
 
             {/* SUBJECT */}
-            <div>
-              <label className="block text-stone-700 text-base mb-4">
+            <div className="flex flex-col border-b border-stone-300/80 pb-1.5 focus-within:border-[#e6007e] transition-colors duration-200">
+              <label className="text-stone-500 text-sm font-normal mb-1">
                 Subject
               </label>
-
               <input
                 type="text"
-                className="w-full bg-transparent border-b border-stone-400 pb-4 outline-none focus:border-[#e6007e] transition text-lg"
+                className="w-full bg-transparent outline-none text-stone-800 text-lg py-0.5 font-light"
               />
             </div>
 
             {/* ENQUIRY TYPE */}
-            <div>
-              <label className="block text-stone-700 text-base mb-4">
+            <div className="flex flex-col border-b border-stone-300/80 pb-1 focus-within:border-[#e6007e] transition-colors duration-200">
+              <label className="text-stone-500 text-sm font-normal mb-1">
                 Enquiry Type
               </label>
-
-              <div className="relative">
+              <div className="relative w-full">
                 <select
-                  className="w-full appearance-none bg-transparent border-b border-stone-400 pb-4 outline-none text-stone-700 focus:border-[#e6007e] transition text-lg"
+                  className="w-full appearance-none bg-transparent outline-none text-stone-700 text-lg pb-0.5 pr-6 cursor-pointer font-light"
+                  defaultValue=""
                 >
-                  <option>Choose an option</option>
-                  <option>Customer Feedback</option>
-                  <option>Product Enquiry</option>
-                  <option>Business Opportunity</option>
-                  <option>Career</option>
+                  <option value="" disabled hidden>Choose an option</option>
+                  <option value="feedback">Customer Feedback</option>
+                  <option value="enquiry">Product Enquiry</option>
+                  <option value="business">Business Opportunity</option>
+                  <option value="career">Career</option>
                 </select>
-
-                <span className="absolute right-1 top-1 text-[#e6007e] pointer-events-none text-lg">
+                <span className="absolute right-0 bottom-2 text-[#e6007e] pointer-events-none text-[10px]">
                   ▼
                 </span>
               </div>
@@ -164,28 +115,27 @@ function ContactUs() {
 
           </div>
 
-          {/* MESSAGE */}
-          <div className="text-left mt-14">
-            <label className="block text-stone-700 text-base mb-4">
+          {/* YOUR MESSAGE FIELD */}
+          <div className="flex flex-col text-left border-b border-stone-300/80 pb-1.5 focus-within:border-[#e6007e] transition-colors duration-200">
+            <label className="text-stone-500 text-sm font-normal mb-1">
               Your Message
             </label>
-
             <textarea
-              rows="4"
-              className="w-full bg-transparent border-b border-stone-400 pb-4 outline-none resize-none focus:border-[#e6007e] transition text-lg"
+              rows="1"
+              className="w-full bg-transparent outline-none resize-none text-stone-800 text-lg py-0.5 font-light"
             ></textarea>
           </div>
 
-          {/* BUTTON */}
-          <div className="text-center mt-14">
+          {/* REFINED SLIM SUBMIT BUTTON */}
+          <div className="text-center pt-4">
             <button
               type="submit"
-              className="bg-[#e6007e] hover:bg-[#c4006b] text-white px-28 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-[#e6007e] hover:bg-[#c4006b] text-white px-12 py-2.5 rounded-full text-sm font-semibold tracking-wide shadow-sm hover:shadow hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
             >
               Send Message
             </button>
 
-            <p className="text-stone-400 text-base mt-5">
+            <p className="text-stone-400 text-xs mt-3 font-light tracking-wide">
               We typically respond within 24 hours.
             </p>
           </div>

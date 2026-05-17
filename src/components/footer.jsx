@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-[#faf7f5] text-stone-700 pt-16 pb-8 mt-auto border-t border-stone-200/60">
+    <footer className="bg-[#fffaf8] text-stone-700 pt-16 pb-8 mt-auto border-t border-stone-200/60">
       {/* Changed "grid-cols-1" text alignment to "text-center md:text-left" */}
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
         
@@ -71,7 +71,7 @@ function Footer() {
       </div>
 
       {/* Bottom Copyright Bar */}
-      <div className="border-t border-stone-200 mt-16 pt-8 text-center text-xs text-stone-400">
+      <div className="mt-10 pt-1 text-center text-xs text-stone-400">
         <p>&copy; {new Date().getFullYear()} RT Pastry. All Rights Reserved.</p>
       </div>
     </footer>

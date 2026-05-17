@@ -2,9 +2,10 @@ import React from 'react';
 // 1. IMPORT REACT ROUTER UTILITIES
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// 2. IMPORT LAYOUT COMPONENTS (Matching your friend's Capital Letters!)
+// 2. IMPORT LAYOUT COMPONENTS
 import Header from './components/Header';
 import Footer from './components/Footer';
+import FloatingSocials from './components/FloatingSocials'; // Added your new floating socials component
 
 // 3. IMPORT INDIVIDUAL PAGES
 import Home from './pages/Home';
@@ -16,7 +17,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* Master Flex layout container to ensure footer sticks to the bottom */}
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-white relative">
 
         {/* The persistent navigation header at the top of every page */}
         <Header />
@@ -34,6 +35,9 @@ function App() {
 
         {/* The persistent footer at the bottom of every page */}
         <Footer />
+
+        {/* Persistent Floating Social Menu on all pages */}
+        <FloatingSocials />
 
       </div>
     </BrowserRouter>

@@ -6,7 +6,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-[#ffffff]/90 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200/60">
+    <header className="bg-[#fffaf8]/90 backdrop-blur-md sticky top-0 z-50">
       
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         
