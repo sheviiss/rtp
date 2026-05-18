@@ -226,7 +226,7 @@ export default function Home() {
             HERO
         ══════════════════════════════ */}
         <section style={{
-          minHeight:'100vh',display:'grid',gridTemplateColumns:'1fr 1fr',
+          height:'83vh', minHeight:'86vh',display:'grid',gridTemplateColumns:'1fr 1fr',
           borderBottom:`1px solid ${C.border}`,
         }}>
           {/* LEFT */}
@@ -416,13 +416,16 @@ export default function Home() {
         <CircleStats />
 
         {/* ══════════════════════════════
-            PRODUCTS — 3 col, soft cards
+            PRODUCTS — Option B: alternating image-text rows
         ══════════════════════════════ */}
-        <section style={{background:C.cream,borderTop:`1px solid ${C.border}`}}>
-          {/* header */}
+        <section style={{background:'#fff',borderTop:`1px solid ${C.border}`}}>
+
+          {/* section header */}
           <div style={{
             display:'flex',alignItems:'flex-end',justifyContent:'space-between',
-            padding:'48px 56px 40px',borderBottom:`1px solid ${C.border}`,
+            padding:'48px 56px 40px',
+            background:C.cream,
+            borderBottom:`1px solid ${C.border}`,
           }}>
             <div>
               <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:8}}>Our Creations</p>
@@ -430,74 +433,168 @@ export default function Home() {
                 Explore our <em style={{color:C.pinkDark}}>signatures</em>
               </h2>
             </div>
-            <Link to="/menu" style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.2em',textTransform:'uppercase',color:C.faint,textDecoration:'none',fontWeight:400,transition:'color .3s'}}>View all →</Link>
+            <Link to="/menu" style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.2em',textTransform:'uppercase',color:C.faint,textDecoration:'none',fontWeight:400}}>
+              View all →
+            </Link>
           </div>
 
-          {/* cards */}
-          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:0}}>
-            {[
-              {tag:'Signature',name:'Fresh Cream Swiss Roll',desc:'Impossibly fluffy sponge wrapped around rich Hokkaido fresh cream. Our legendary No.1.',accent:'#f9eef4'},
-              {tag:'Daily Baked',name:'Artisan Loaves',desc:'Traditional fermentation, baked before sunrise. Pillowy texture, sincere ingredients.',accent:'#f9f3ee'},
-              {tag:'Celebration',name:'Layer Cakes',desc:'Crafted with care. Minimalist designs, perfectly balanced sweetness for precious moments.',accent:'#eef3f9'},
-              {tag:'Morning',name:'Butter Croissants',desc:'Hand-laminated with pure butter. Shatteringly crisp outside, pillowy and warm within.',accent:'#f9f9ee'},
-              {tag:'Premium Gift',name:'Gift Hampers',desc:'Curated selections of RT\'s finest — perfect for corporate and festive gifting.',accent:'#eef9f2'},
-              {tag:'Seasonal',name:'Festive Specials',desc:'Limited creations celebrating Malaysian festivals and the finest seasonal ingredients.',accent:'#f4eef9'},
-            ].map(({tag,name,desc,accent},i)=>(
-              <div key={i} className="rt-hover-card" style={{
-                padding:'36px 32px',
-                borderRight:i%3<2?`1px solid ${C.border}`:'none',
-                borderBottom:`1px solid ${C.border}`,
-                background:'#fff',cursor:'default',
-                boxShadow:'none',
-              }}>
-                <div style={{
-                  width:40,height:40,borderRadius:10,
-                  background:accent,marginBottom:18,
-                  display:'flex',alignItems:'center',justifyContent:'center',
-                }}>
-                  <div style={{width:10,height:10,borderRadius:'50%',background:C.rose}}/>
-                </div>
-                <p style={{fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.28em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:8}}>{tag}</p>
-                <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontWeight:400,color:C.text,marginBottom:10,lineHeight:1.25}}>{name}</h3>
-                <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14,color:C.muted,fontWeight:300,lineHeight:1.75,fontStyle:'italic'}}>{desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ══════════════════════════════
-            WHY RT — cream, light strip
-        ══════════════════════════════ */}
-        <section style={{
-          background:C.cream2,
-          borderTop:`1px solid ${C.border}`,
-          display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:0,
-        }}>
+          {/* alternating rows */}
           {[
-            {n:'01',h:'Premium Ingredients',p:'Only the finest ingredients, sourced with care for every product we create.'},
-            {n:'02',h:'Authentic Recipes',p:'23 years of baking tradition, refined one loaf at a time.'},
-            {n:'03',h:'Fresh Every Day',p:'360 days a year our ovens fire early so every bite is at its very best.'},
-            {n:'04',h:'Family First',p:'RT — Rumah Tangga. Every customer welcomed like family.'},
-          ].map(({n,h,p},i)=>(
-            <div key={i} style={{
-              padding:'48px 36px',
-              borderRight:i<3?`1px solid ${C.border}`:'none',
-            }}>
-              <div style={{fontFamily:"'Fraunces',serif",fontSize:48,fontStyle:'italic',fontWeight:300,color:`rgba(180,100,130,0.12)`,lineHeight:1,marginBottom:14}}>{n}</div>
-              <div style={{width:20,height:1,background:C.rose,marginBottom:14}}/>
-              <h4 style={{fontFamily:'Jost,sans-serif',fontSize:11,fontWeight:500,color:C.text,letterSpacing:'0.05em',marginBottom:10}}>{h}</h4>
-              <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:14,color:C.muted,fontWeight:300,lineHeight:1.75,fontStyle:'italic'}}>{p}</p>
-            </div>
-          ))}
-        </section>
+            {
+              tag:'Signature',
+              name:'Fresh Cream Swiss Roll',
+              desc:'Impossibly fluffy sponge wrapped around rich, melt-in-your-mouth Hokkaido fresh cream. Our legendary number one — baked fresh every single morning without exception.',
+              detail:'Bestseller · Daily fresh',
+              imgBg:'#f5eef2',
+              dotColor:'rgba(184,85,128,0.22)',
+              reverse:false,
+            },
+            {
+              tag:'Daily Baked',
+              name:'Artisan Loaves',
+              desc:'Traditional natural fermentation techniques give our loaves their signature pillowy texture. Baked before sunrise, every loaf carries the warmth of genuine craft and sincere ingredients.',
+              detail:'Baked before sunrise · Every day',
+              imgBg:'#f5f0ea',
+              dotColor:'rgba(160,130,90,0.22)',
+              reverse:true,
+            },
+            {
+              tag:'Celebration',
+              name:'Layer Cakes',
+              desc:'Crafted by our pastry team with minimalist designs and perfectly balanced sweetness. Available for custom orders — made for your most precious milestones and celebrations.',
+              detail:'Custom orders welcome',
+              imgBg:'#eef0f7',
+              dotColor:'rgba(100,120,180,0.2)',
+              reverse:false,
+            },
+            {
+              tag:'Morning',
+              name:'Butter Croissants',
+              desc:'Hand-laminated with 72 layers of pure butter. Shatteringly crisp on the outside, impossibly pillowy within — a perfect start to any morning across all 17 of our outlets.',
+              detail:'Morning pick · 17 outlets',
+              imgBg:'#f7f5ea',
+              dotColor:'rgba(160,150,80,0.2)',
+              reverse:true,
+            },
+            {
+              tag:'Premium Gift',
+              name:'Gift Hampers',
+              desc:'Curated selections of RT Pastry\'s finest creations — beautifully presented for corporate gifting, festive seasons, and every occasion that calls for something truly special.',
+              detail:'Corporate · Festive · Occasions',
+              imgBg:'#eaf5ef',
+              dotColor:'rgba(80,160,110,0.18)',
+              reverse:false,
+            },
+            {
+              tag:'Seasonal',
+              name:'Festive Specials',
+              desc:'Limited-edition creations that celebrate the richness of Malaysian festivals and the finest seasonal ingredients. Each release is designed to be savoured — while it lasts.',
+              detail:'Limited edition · Seasonal',
+              imgBg:'#f3eef7',
+              dotColor:'rgba(140,90,180,0.18)',
+              reverse:true,
+            },
+          ].map(({tag,name,desc,detail,imgBg,dotColor,reverse},i)=>{
 
+            const isLast = i === 5;
+
+            const imgPanel = (
+              <div key="img" style={{
+                background:imgBg,
+                display:'flex',alignItems:'center',justifyContent:'center',
+                minHeight:220,
+                position:'relative',
+                overflow:'hidden',
+              }}>
+                {/* subtle concentric rings */}
+                <div style={{
+                  position:'absolute',
+                  width:200,height:200,borderRadius:'50%',
+                  border:`1px solid ${dotColor.replace('0.22','0.12').replace('0.2','0.12').replace('0.18','0.12')}`,
+                  pointerEvents:'none',
+                }}/>
+                <div style={{
+                  position:'absolute',
+                  width:130,height:130,borderRadius:'50%',
+                  border:`1px solid ${dotColor.replace('0.22','0.08').replace('0.2','0.08').replace('0.18','0.08')}`,
+                  pointerEvents:'none',
+                }}/>
+                {/* center dot */}
+                <div style={{
+                  width:52,height:52,borderRadius:'50%',
+                  background:dotColor,
+                  display:'flex',alignItems:'center',justifyContent:'center',
+                  position:'relative',zIndex:1,
+                }}>
+                  <div style={{width:18,height:18,borderRadius:'50%',background:dotColor.replace('0.22','0.5').replace('0.2','0.5').replace('0.18','0.5')}}/>
+                </div>
+                {/* item number */}
+                <div style={{
+                  position:'absolute',bottom:16,right:20,
+                  fontFamily:"'Fraunces',serif",fontStyle:'italic',
+                  fontSize:40,fontWeight:300,
+                  color:`rgba(0,0,0,0.06)`,lineHeight:1,
+                  pointerEvents:'none',
+                }}>{String(i+1).padStart(2,'0')}</div>
+              </div>
+            );
+
+            const txtPanel = (
+              <div key="txt" style={{
+                padding:'40px 52px',
+                display:'flex',flexDirection:'column',justifyContent:'center',
+                borderLeft: reverse ? 'none' : `1px solid ${C.border}`,
+                borderRight: reverse ? `1px solid ${C.border}` : 'none',
+                background:'#fff',
+              }}>
+                <p style={{fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.35em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:12}}>
+                  {tag}
+                </p>
+                <h3 style={{
+                  fontFamily:"'Cormorant Garamond',serif",
+                  fontSize:'clamp(22px,2.5vw,30px)',
+                  fontWeight:400,color:C.text,
+                  marginBottom:14,lineHeight:1.15,
+                }}>{name}</h3>
+                <div style={{width:24,height:1,background:C.rose,marginBottom:16}}/>
+                <p style={{
+                  fontFamily:"'Cormorant Garamond',serif",
+                  fontSize:15,color:C.muted,
+                  fontWeight:300,lineHeight:1.85,
+                  fontStyle:'italic',marginBottom:20,
+                }}>{desc}</p>
+                <p style={{
+                  fontFamily:'Jost,sans-serif',
+                  fontSize:8,letterSpacing:'0.22em',
+                  textTransform:'uppercase',color:C.faint,fontWeight:300,
+                }}>{detail}</p>
+              </div>
+            );
+
+            return (
+              <div key={i} style={{
+                display:'grid',
+                gridTemplateColumns: reverse ? '3fr 2fr' : '2fr 3fr',
+                borderBottom: isLast ? 'none' : `1px solid ${C.border}`,
+              }}>
+                {reverse ? [txtPanel, imgPanel] : [imgPanel, txtPanel]}
+              </div>
+            );
+          })}
+
+        </section>
+        
         {/* ══════════════════════════════
-            OUTLETS — clean list
+            OUTLETS — Option B: ghost number cards
         ══════════════════════════════ */}
-        <section style={{background:C.cream,borderTop:`1px solid ${C.border}`}}>
+        <section style={{background:'#fff',borderTop:`1px solid ${C.border}`}}>
+
+          {/* header */}
           <div style={{
             display:'flex',alignItems:'flex-end',justifyContent:'space-between',
-            padding:'48px 56px 40px',borderBottom:`1px solid ${C.border}`,
+            padding:'48px 56px 40px',
+            background:C.cream,
+            borderBottom:`1px solid ${C.border}`,
           }}>
             <div>
               <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:8}}>Find Us</p>
@@ -505,29 +602,147 @@ export default function Home() {
                 17 outlets across <em style={{color:C.pinkDark}}>Klang Valley</em>
               </h2>
             </div>
-            <Link to="/outlets" style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.2em',textTransform:'uppercase',color:C.faint,textDecoration:'none',fontWeight:400}}>All outlets →</Link>
+            <Link to="/outlets" style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.2em',textTransform:'uppercase',color:C.faint,textDecoration:'none',fontWeight:400}}>
+              All outlets →
+            </Link>
           </div>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:0}}>
+
+          {/* 3-col ghost number grid */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)'}}>
             {[
-              {n:'01',name:'Cheras',addr:'Leisure Mall, Jalan Manis 6'},
-              {n:'02',name:'Kepong',addr:'Metro Prima Shopping Centre'},
-              {n:'03',name:'Puchong',addr:'IOI Mall Puchong'},
-              {n:'04',name:'Shah Alam',addr:'AEON Shah Alam'},
-              {n:'05',name:'Subang Jaya',addr:'Empire Shopping Gallery'},
-              {n:'06',name:'Petaling Jaya',addr:'Jaya Shopping Centre'},
-            ].map(({n,name,addr},i)=>(
-              <div key={i} className="rt-outlet" style={{
-                padding:'28px 36px',
-                borderRight:i%3<2?`1px solid ${C.border}`:'none',
-                borderBottom:`1px solid ${C.border}`,
-                background:'transparent',cursor:'default',transition:'all .25s',
-              }}>
-                <span style={{fontFamily:"'Fraunces',serif",fontStyle:'italic',fontSize:24,color:C.rose,fontWeight:300,display:'block',marginBottom:8,lineHeight:1}}>{n}</span>
-                <h4 style={{fontFamily:'Jost,sans-serif',fontSize:13,fontWeight:500,color:C.text,marginBottom:4,letterSpacing:'0.02em'}}>{name}</h4>
-                <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:13,color:C.muted,fontWeight:300,fontStyle:'italic'}}>{addr}</p>
-              </div>
-            ))}
+              {n:'01', name:'Cheras',       addr:'Leisure Mall, Jalan Manis 6',    area:'Kuala Lumpur'},
+              {n:'02', name:'Kepong',       addr:'Metro Prima Shopping Centre',    area:'Kuala Lumpur'},
+              {n:'03', name:'Puchong',      addr:'IOI Mall Puchong',               area:'Selangor'},
+              {n:'04', name:'Shah Alam',    addr:'AEON Shah Alam',                 area:'Selangor'},
+              {n:'05', name:'Subang Jaya',  addr:'Empire Shopping Gallery',        area:'Selangor'},
+              {n:'06', name:'Petaling Jaya',addr:'Jaya Shopping Centre',           area:'Selangor'},
+            ].map(({n, name, addr, area}, i) => {
+              const isLastRow  = i >= 3;
+              const isLastCol  = i % 3 === 2;
+              return (
+                <div
+                  key={i}
+                  style={{
+                    padding:'32px 36px',
+                    borderRight:  isLastCol  ? 'none' : `1px solid ${C.border}`,
+                    borderBottom: isLastRow  ? 'none' : `1px solid ${C.border}`,
+                    position:'relative',
+                    overflow:'hidden',
+                    background:'#fff',
+                    transition:'background .25s',
+                    cursor:'default',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#fdf8fb'}
+                  onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+                >
+                  {/* large ghost number behind everything */}
+                  <div style={{
+                    position:'absolute',
+                    top:-8, right:8,
+                    fontFamily:"'Fraunces',serif",
+                    fontStyle:'italic',
+                    fontSize:80,
+                    fontWeight:300,
+                    color:'rgba(180,100,130,0.06)',
+                    lineHeight:1,
+                    userSelect:'none',
+                    pointerEvents:'none',
+                  }}>{n}</div>
+
+                  {/* small pink dot accent */}
+                  <div style={{
+                    width:5, height:5, borderRadius:'50%',
+                    background:'rgba(184,85,128,0.25)',
+                    marginBottom:16,
+                  }}/>
+
+                  {/* small numbered label */}
+                  <p style={{
+                    fontFamily:"'Fraunces',serif",
+                    fontStyle:'italic',
+                    fontSize:13,
+                    fontWeight:300,
+                    color:'rgba(180,100,130,0.4)',
+                    marginBottom:12,
+                    lineHeight:1,
+                  }}>{n}</p>
+
+                  {/* outlet name */}
+                  <h4 style={{
+                    fontFamily:'Jost,sans-serif',
+                    fontSize:15,
+                    fontWeight:500,
+                    color:C.text,
+                    marginBottom:6,
+                    letterSpacing:'0.02em',
+                  }}>{name}</h4>
+
+                  {/* address */}
+                  <p style={{
+                    fontFamily:"'Cormorant Garamond',serif",
+                    fontSize:13,
+                    color:C.muted,
+                    fontStyle:'italic',
+                    fontWeight:300,
+                    marginBottom:12,
+                    lineHeight:1.5,
+                  }}>{addr}</p>
+
+                  {/* area tag */}
+                  <p style={{
+                    fontFamily:'Jost,sans-serif',
+                    fontSize:8,
+                    letterSpacing:'0.22em',
+                    textTransform:'uppercase',
+                    color:C.faint,
+                    fontWeight:300,
+                  }}>{area}</p>
+
+                </div>
+              );
+            })}
           </div>
+
+          {/* bottom CTA strip */}
+          <div style={{
+            padding:'20px 56px',
+            borderTop:`1px solid ${C.border}`,
+            background:C.cream,
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'space-between',
+          }}>
+            <p style={{
+              fontFamily:"'Cormorant Garamond',serif",
+              fontSize:14,
+              fontStyle:'italic',
+              color:C.faint,
+              fontWeight:300,
+            }}>
+              Showing 6 of 17 outlets — more coming soon
+            </p>
+            <Link to="/outlets" style={{
+              display:'inline-flex',
+              alignItems:'center',
+              gap:8,
+              padding:'9px 22px',
+              border:`1px solid ${C.borderMid}`,
+              borderRadius:100,
+              fontFamily:'Jost,sans-serif',
+              fontSize:9,
+              letterSpacing:'0.2em',
+              textTransform:'uppercase',
+              color:C.pinkDark,
+              textDecoration:'none',
+              fontWeight:400,
+              transition:'all .25s',
+            }}
+            onMouseEnter={e=>{e.currentTarget.style.background=C.pinkDark;e.currentTarget.style.color='#fff';e.currentTarget.style.borderColor=C.pinkDark;}}
+            onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.color=C.pinkDark;e.currentTarget.style.borderColor=C.borderMid;}}>
+              View all 17 outlets →
+            </Link>
+          </div>
+
         </section>
 
         {/* ══════════════════════════════
