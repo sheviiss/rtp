@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom'; // 🌟 Changed Link to include NavLink
 import logo from '../assets/logo.png';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
+  // 🌟 Reusable class logic to keep your code clean and dry
+  const getNavLinkClass = ({ isActive }) =>
+    `transition duration-200 uppercase tracking-wider text-xs font-semibold ${
+      isActive 
+        ? 'text-[#e6007e] font-bold border-b-2 border-[#e6007e] pb-1' 
+        : 'text-stone-500 hover:text-[#e6007e] font-medium'
+    }`;
+
+  const getMobileNavLinkClass = ({ isActive }) =>
+    `py-1 transition duration-200 tracking-wide ${
+      isActive 
+        ? 'text-[#e6007e] font-bold pl-2 border-l-2 border-[#e6007e]' 
+        : 'text-stone-600 hover:text-[#e6007e]'
+    }`;
+
   return (
-    <header className="bg-[#fffaf8]/90 backdrop-blur-md sticky top-0 z-50">
+    <header className="bg-[#fffaf8]/90 backdrop-blur-md sticky top-0 z-50 border-b border-stone-100">
       
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         
@@ -20,35 +35,23 @@ function Header() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
+        <nav className="hidden md:flex items-center gap-8 text-sm">
 
-          <Link 
-            to="/" 
-            className="hover:text-[#e6007e] transition duration-200"
-          >
+          <NavLink to="/" className={getNavLinkClass}>
             Home
-          </Link>
+          </NavLink>
 
-          <Link 
-            to="/about" 
-            className="hover:text-[#e6007e] transition duration-200"
-          >
+          <NavLink to="/about" className={getNavLinkClass}>
             About Us
-          </Link>
+          </NavLink>
 
-          <Link 
-            to="/outlets" 
-            className="hover:text-[#e6007e] transition duration-200"
-          >
+          <NavLink to="/outlets" className={getNavLinkClass}>
             Our Outlets
-          </Link>
+          </NavLink>
 
-          <Link 
-            to="/contact" 
-            className="hover:text-[#e6007e] transition duration-200"
-          >
+          <NavLink to="/contact" className={getNavLinkClass}>
             Contact Us
-          </Link>
+          </NavLink>
 
           <Link
             to="/order"
@@ -91,37 +94,37 @@ function Header() {
       {isOpen && (
         <div className="md:hidden bg-[#faf7f5] border-b border-stone-200/60 px-6 py-4 flex flex-col gap-4 text-sm font-medium text-stone-600 shadow-inner">
 
-          <Link
+          <NavLink
             to="/"
             onClick={() => setIsOpen(false)}
-            className="hover:text-[#e6007e] py-1"
+            className={getMobileNavLinkClass}
           >
             Home
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="/about"
             onClick={() => setIsOpen(false)}
-            className="hover:text-[#e6007e] py-1"
+            className={getMobileNavLinkClass}
           >
             About Us
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="/outlets"
             onClick={() => setIsOpen(false)}
-            className="hover:text-[#e6007e] py-1"
+            className={getMobileNavLinkClass}
           >
             Our Outlets
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="/contact"
             onClick={() => setIsOpen(false)}
-            className="hover:text-[#e6007e] py-1"
+            className={getMobileNavLinkClass}
           >
             Contact Us
-          </Link>
+          </NavLink>
 
           <Link
             to="/order"

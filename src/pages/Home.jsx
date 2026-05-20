@@ -2,6 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import logo  from '../assets/logo.png';
 import store from '../assets/rtpastry.png';
+import swissroll from '../assets/swissroll.png';
+import croissant from '../assets/croissant.png';
+import layercake from '../assets/layercake.png';
+import bakery from '../assets/bakery.png';
+import loaf from '../assets/loaf.png';
 
 /* ── Google Fonts ── */
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&display=swap');`;
@@ -416,11 +421,13 @@ export default function Home() {
         <CircleStats />
 
         {/* ══════════════════════════════
-            PRODUCTS — Option B: alternating image-text rows
+            PRODUCTS — image + text alternating rows
+            Add your real images to the `img` field.
+            Falls back to a soft tinted panel if no image.
         ══════════════════════════════ */}
         <section style={{background:'#fff',borderTop:`1px solid ${C.border}`}}>
 
-          {/* section header */}
+          {/* header */}
           <div style={{
             display:'flex',alignItems:'flex-end',justifyContent:'space-between',
             padding:'48px 56px 40px',
@@ -428,162 +435,214 @@ export default function Home() {
             borderBottom:`1px solid ${C.border}`,
           }}>
             <div>
-              <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:8}}>Our Creations</p>
-              <h2 style={{fontFamily:"'Fraunces',serif",fontSize:'clamp(26px,3vw,40px)',fontWeight:300,color:C.text,lineHeight:1.1,margin:0,fontStyle:'italic'}}>
+              <p style={{
+                fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',
+                textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:8,
+              }}>Our Creations</p>
+              <h2 style={{
+                fontFamily:"'Fraunces',serif",
+                fontSize:'clamp(26px,3vw,40px)',fontWeight:300,
+                color:C.text,lineHeight:1.1,margin:0,fontStyle:'italic',
+              }}>
                 Explore our <em style={{color:C.pinkDark}}>signatures</em>
               </h2>
             </div>
-            <Link to="/menu" style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.2em',textTransform:'uppercase',color:C.faint,textDecoration:'none',fontWeight:400}}>
-              View all →
-            </Link>
+            <Link to="/menu" style={{
+              fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.2em',
+              textTransform:'uppercase',color:C.faint,textDecoration:'none',fontWeight:400,
+            }}>View all →</Link>
           </div>
 
-          {/* alternating rows */}
           {[
             {
               tag:'Signature',
               name:'Fresh Cream Swiss Roll',
               desc:'Impossibly fluffy sponge wrapped around rich, melt-in-your-mouth Hokkaido fresh cream. Our legendary number one — baked fresh every single morning without exception.',
               detail:'Bestseller · Daily fresh',
+              img: swissroll,           
               imgBg:'#f5eef2',
-              dotColor:'rgba(184,85,128,0.22)',
               reverse:false,
             },
             {
               tag:'Daily Baked',
               name:'Artisan Loaves',
-              desc:'Traditional natural fermentation techniques give our loaves their signature pillowy texture. Baked before sunrise, every loaf carries the warmth of genuine craft and sincere ingredients.',
+              desc:'Traditional natural fermentation gives our loaves their signature pillowy texture. Baked before sunrise — every loaf carries the warmth of genuine craft.',
               detail:'Baked before sunrise · Every day',
+              img: loaf,           
               imgBg:'#f5f0ea',
-              dotColor:'rgba(160,130,90,0.22)',
               reverse:true,
             },
             {
               tag:'Celebration',
               name:'Layer Cakes',
-              desc:'Crafted by our pastry team with minimalist designs and perfectly balanced sweetness. Available for custom orders — made for your most precious milestones and celebrations.',
+              desc:'Crafted with minimalist designs and perfectly balanced sweetness. Available for custom orders — made for your most precious milestones.',
               detail:'Custom orders welcome',
+              img: layercake,          
               imgBg:'#eef0f7',
-              dotColor:'rgba(100,120,180,0.2)',
               reverse:false,
             },
             {
               tag:'Morning',
               name:'Butter Croissants',
-              desc:'Hand-laminated with 72 layers of pure butter. Shatteringly crisp on the outside, impossibly pillowy within — a perfect start to any morning across all 17 of our outlets.',
+              desc:'Hand-laminated with 72 layers of pure butter. Shatteringly crisp on the outside, impossibly pillowy within — the perfect morning ritual.',
               detail:'Morning pick · 17 outlets',
+              img: croissant,           
               imgBg:'#f7f5ea',
-              dotColor:'rgba(160,150,80,0.2)',
               reverse:true,
-            },
-            {
-              tag:'Premium Gift',
-              name:'Gift Hampers',
-              desc:'Curated selections of RT Pastry\'s finest creations — beautifully presented for corporate gifting, festive seasons, and every occasion that calls for something truly special.',
-              detail:'Corporate · Festive · Occasions',
-              imgBg:'#eaf5ef',
-              dotColor:'rgba(80,160,110,0.18)',
-              reverse:false,
             },
             {
               tag:'Seasonal',
               name:'Festive Specials',
-              desc:'Limited-edition creations that celebrate the richness of Malaysian festivals and the finest seasonal ingredients. Each release is designed to be savoured — while it lasts.',
+              desc:'Limited-edition creations celebrating the richness of Malaysian festivals and the finest seasonal ingredients. Designed to be savoured — while it lasts.',
               detail:'Limited edition · Seasonal',
+              img: bakery,           
               imgBg:'#f3eef7',
-              dotColor:'rgba(140,90,180,0.18)',
-              reverse:true,
+              reverse:false,
             },
-          ].map(({tag,name,desc,detail,imgBg,dotColor,reverse},i)=>{
+          ].map(({ tag, name, desc, detail, img, imgBg, reverse }, i) => {
 
             const isLast = i === 5;
 
+            /* ── image / placeholder panel ── */
             const imgPanel = (
-              <div key="img" style={{
-                background:imgBg,
-                display:'flex',alignItems:'center',justifyContent:'center',
-                minHeight:220,
-                position:'relative',
-                overflow:'hidden',
-              }}>
-                {/* subtle concentric rings */}
-                <div style={{
-                  position:'absolute',
-                  width:200,height:200,borderRadius:'50%',
-                  border:`1px solid ${dotColor.replace('0.22','0.12').replace('0.2','0.12').replace('0.18','0.12')}`,
-                  pointerEvents:'none',
-                }}/>
-                <div style={{
-                  position:'absolute',
-                  width:130,height:130,borderRadius:'50%',
-                  border:`1px solid ${dotColor.replace('0.22','0.08').replace('0.2','0.08').replace('0.18','0.08')}`,
-                  pointerEvents:'none',
-                }}/>
-                {/* center dot */}
-                <div style={{
-                  width:52,height:52,borderRadius:'50%',
-                  background:dotColor,
-                  display:'flex',alignItems:'center',justifyContent:'center',
-                  position:'relative',zIndex:1,
-                }}>
-                  <div style={{width:18,height:18,borderRadius:'50%',background:dotColor.replace('0.22','0.5').replace('0.2','0.5').replace('0.18','0.5')}}/>
-                </div>
-                {/* item number */}
+              <div
+                key="img"
+                style={{
+                  position:'relative',
+                  overflow:'hidden',
+                  minHeight:300,
+                  background: img ? '#000' : imgBg,
+                }}
+              >
+                {img ? (
+                  /* real product photo */
+                  <img
+                    src={img}
+                    alt={name}
+                    style={{
+                      width:'100%',height:'100%',
+                      objectFit:'cover',
+                      display:'block',
+                      transition:'transform 0.7s cubic-bezier(0.2,0,0.2,1)',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.transform='scale(1.04)'}
+                    onMouseLeave={e => e.currentTarget.style.transform='scale(1)'}
+                  />
+                ) : (
+                  /* soft placeholder until you add the photo */
+                  <div style={{
+                    width:'100%',height:'100%',minHeight:300,
+                    background:imgBg,
+                    display:'flex',flexDirection:'column',
+                    alignItems:'center',justifyContent:'center',
+                    gap:12,
+                  }}>
+                    {/* gentle concentric rings placeholder art */}
+                    <div style={{
+                      position:'relative',
+                      width:120,height:120,
+                      display:'flex',alignItems:'center',justifyContent:'center',
+                    }}>
+                      <div style={{position:'absolute',width:120,height:120,borderRadius:'50%',border:`1px solid rgba(180,100,130,0.12)`}}/>
+                      <div style={{position:'absolute',width:80,height:80,borderRadius:'50%',border:`1px solid rgba(180,100,130,0.1)`}}/>
+                      <div style={{width:32,height:32,borderRadius:'50%',background:'rgba(180,100,130,0.12)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <div style={{width:10,height:10,borderRadius:'50%',background:'rgba(180,100,130,0.3)'}}/>
+                      </div>
+                    </div>
+                    <p style={{
+                      fontFamily:'Jost,sans-serif',fontSize:8,
+                      letterSpacing:'0.28em',textTransform:'uppercase',
+                      color:'rgba(180,100,130,0.3)',fontWeight:300,
+                    }}>Image coming soon</p>
+                  </div>
+                )}
+
+                {/* bottom-right item number — always visible */}
                 <div style={{
                   position:'absolute',bottom:16,right:20,
                   fontFamily:"'Fraunces',serif",fontStyle:'italic',
-                  fontSize:40,fontWeight:300,
-                  color:`rgba(0,0,0,0.06)`,lineHeight:1,
-                  pointerEvents:'none',
+                  fontSize:40,fontWeight:300,lineHeight:1,
+                  color: img ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.07)',
+                  pointerEvents:'none',userSelect:'none',
                 }}>{String(i+1).padStart(2,'0')}</div>
+
+                {/* soft bottom gradient on real photos */}
+                {img && (
+                  <div style={{
+                    position:'absolute',bottom:0,left:0,right:0,height:'35%',
+                    background:'linear-gradient(to top,rgba(45,31,40,0.18),transparent)',
+                    pointerEvents:'none',
+                  }}/>
+                )}
               </div>
             );
 
+            /* ── text panel ── */
             const txtPanel = (
-              <div key="txt" style={{
-                padding:'40px 52px',
-                display:'flex',flexDirection:'column',justifyContent:'center',
-                borderLeft: reverse ? 'none' : `1px solid ${C.border}`,
-                borderRight: reverse ? `1px solid ${C.border}` : 'none',
-                background:'#fff',
-              }}>
-                <p style={{fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.35em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:12}}>
-                  {tag}
-                </p>
+              <div
+                key="txt"
+                style={{
+                  padding:'48px 52px',
+                  display:'flex',flexDirection:'column',justifyContent:'center',
+                  background:'#fff',
+                  borderLeft:  reverse ? 'none' : `1px solid ${C.border}`,
+                  borderRight: reverse ? `1px solid ${C.border}` : 'none',
+                }}
+              >
+                <p style={{
+                  fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.38em',
+                  textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:14,
+                }}>{tag}</p>
+
                 <h3 style={{
                   fontFamily:"'Cormorant Garamond',serif",
-                  fontSize:'clamp(22px,2.5vw,30px)',
+                  fontSize:'clamp(24px,2.8vw,34px)',
                   fontWeight:400,color:C.text,
-                  marginBottom:14,lineHeight:1.15,
+                  marginBottom:16,lineHeight:1.12,
                 }}>{name}</h3>
-                <div style={{width:24,height:1,background:C.rose,marginBottom:16}}/>
+
+                <div style={{width:28,height:1,background:C.rose,marginBottom:18}}/>
+
                 <p style={{
                   fontFamily:"'Cormorant Garamond',serif",
-                  fontSize:15,color:C.muted,
-                  fontWeight:300,lineHeight:1.85,
-                  fontStyle:'italic',marginBottom:20,
+                  fontSize:15,color:C.muted,fontWeight:300,
+                  lineHeight:1.9,fontStyle:'italic',marginBottom:24,
                 }}>{desc}</p>
-                <p style={{
-                  fontFamily:'Jost,sans-serif',
-                  fontSize:8,letterSpacing:'0.22em',
-                  textTransform:'uppercase',color:C.faint,fontWeight:300,
-                }}>{detail}</p>
+
+                <div style={{
+                  display:'flex',alignItems:'center',
+                  justifyContent:'space-between',
+                  paddingTop:18,borderTop:`1px solid ${C.border}`,
+                }}>
+                  <p style={{
+                    fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.22em',
+                    textTransform:'uppercase',color:C.faint,fontWeight:300,
+                  }}>{detail}</p>
+                  <span style={{
+                    fontFamily:"'Cormorant Garamond',serif",
+                    fontStyle:'italic',fontSize:20,
+                    color:'rgba(180,100,130,0.2)',
+                  }}>→</span>
+                </div>
               </div>
             );
 
             return (
-              <div key={i} style={{
-                display:'grid',
-                gridTemplateColumns: reverse ? '3fr 2fr' : '2fr 3fr',
-                borderBottom: isLast ? 'none' : `1px solid ${C.border}`,
-              }}>
+              <div
+                key={i}
+                style={{
+                  display:'grid',
+                  gridTemplateColumns: reverse ? '3fr 2fr' : '2fr 3fr',
+                  borderBottom: isLast ? 'none' : `1px solid ${C.border}`,
+                }}
+              >
                 {reverse ? [txtPanel, imgPanel] : [imgPanel, txtPanel]}
               </div>
             );
           })}
 
         </section>
-        
+
         {/* ══════════════════════════════
             OUTLETS — Option B: ghost number cards
         ══════════════════════════════ */}
@@ -702,47 +761,6 @@ export default function Home() {
               );
             })}
           </div>
-
-          {/* bottom CTA strip */}
-          <div style={{
-            padding:'20px 56px',
-            borderTop:`1px solid ${C.border}`,
-            background:C.cream,
-            display:'flex',
-            alignItems:'center',
-            justifyContent:'space-between',
-          }}>
-            <p style={{
-              fontFamily:"'Cormorant Garamond',serif",
-              fontSize:14,
-              fontStyle:'italic',
-              color:C.faint,
-              fontWeight:300,
-            }}>
-              Showing 6 of 17 outlets — more coming soon
-            </p>
-            <Link to="/outlets" style={{
-              display:'inline-flex',
-              alignItems:'center',
-              gap:8,
-              padding:'9px 22px',
-              border:`1px solid ${C.borderMid}`,
-              borderRadius:100,
-              fontFamily:'Jost,sans-serif',
-              fontSize:9,
-              letterSpacing:'0.2em',
-              textTransform:'uppercase',
-              color:C.pinkDark,
-              textDecoration:'none',
-              fontWeight:400,
-              transition:'all .25s',
-            }}
-            onMouseEnter={e=>{e.currentTarget.style.background=C.pinkDark;e.currentTarget.style.color='#fff';e.currentTarget.style.borderColor=C.pinkDark;}}
-            onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.color=C.pinkDark;e.currentTarget.style.borderColor=C.borderMid;}}>
-              View all 17 outlets →
-            </Link>
-          </div>
-
         </section>
 
         {/* ══════════════════════════════
@@ -763,7 +781,7 @@ export default function Home() {
             fontSize:220,fontWeight:300,
             color:`rgba(180,100,130,0.04)`,lineHeight:1,
             pointerEvents:'none',letterSpacing:'-0.05em',whiteSpace:'nowrap',
-          }}>Shop</div>
+          }}>RT Pastry</div>
 
           <div style={{position:'relative',zIndex:1}}>
             <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:12}}>Online Shop</p>

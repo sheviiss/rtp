@@ -3,7 +3,7 @@ import React from "react";
 function ContactUs() {
   return (
     // Fits the screen exactly under the header navbar, perfectly clean and minimal
-    <section className="relative overflow-hidden bg-[#fffaf8] h-[calc(100vh-80px)] w-full flex items-center justify-center px-6">
+    <section className="relative overflow-hidden bg-[#fffaf8] min-h-[calc(100vh-80px)] w-full flex items-start justify-center px-6 pt-12 md:pt-10 pb-20">
 
       {/* --- MAIN WRAPPER CONTENT --- */}
       <div className="relative z-10 w-full max-w-3xl text-center flex flex-col items-center justify-center my-auto">

@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import Outlets from './pages/Outlets';
+import Order from './pages/Order';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/outlets" element={<Outlets />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/order" element={<Order />} />
           </Routes>
         </main>
 

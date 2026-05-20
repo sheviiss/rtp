@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 export default function Outlets() {
   const [activeRegion, setActiveRegion] = useState('ALL');
 
-  // MASTER DATA MATRIX WITH REAL MALAYSIAN ADDRESSES & WHATSAPP GENERATOR DATA
   const outletData = [
     { 
       name: "UPTOWN", 
@@ -135,12 +134,11 @@ export default function Outlets() {
     },
     { 
       name: "CHERAS BUKIT ANGGERIK", 
-      phone: "No.89, Jalan 34/154", 
-      hours: "WhatsApp Us", 
-      region: "CHERAS", 
+      phone: "+60 11-2189 9003", 
+      hours: "8:00am – 10:00pm Daily", 
+      region: "CHERAS",
       address: "No. 89, Jalan 34/154, Taman Dahlia, Cheras, 56000 Kuala Lumpur",
-      waPhone: "60123456789", // Placeholder active mobile WA connection line
-      isSpecial: true 
+      waPhone: "60123456789"
     }
   ];
 
@@ -151,7 +149,7 @@ export default function Outlets() {
     : outletData.filter(o => o.region === activeRegion);
 
   return (
-    <div className="w-full bg-[#fdfaf8] antialiased text-stone-800 py-20 md:py-32">
+    <div className="w-full bg-[#fdfaf8] antialiased text-stone-800 pt-6 pb-20 md:pt-10 md:pb-32">
       <div className="container mx-auto max-w-6xl px-6">
         
         {/* HEADER BLOCK */}
@@ -182,44 +180,7 @@ export default function Outlets() {
         {/* OUTLET GRID ASSEMBLY */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredOutlets.map((outlet, index) => {
-            
-            // ── SPECIAL CARD INTERACTIVE SETUP: CHERAS BUKIT ANGGERIK ──
-            if (outlet.isSpecial) {
-              return (
-                <div 
-                  key={index} 
-                  className="bg-gradient-to-br from-[#1e3a5f] to-[#12253f] p-10 rounded-[40px] shadow-xl border border-stone-900 flex flex-col justify-between relative overflow-hidden group min-h-[260px]"
-                >
-                  <div className="absolute w-56 h-56 rounded-full bg-[#e6007e]/10 blur-[50px] top-0 pointer-events-none" />
-                  
-                  <div className="relative z-10 transition-all duration-300 group-hover:-translate-y-2">
-                    <span className="text-[9px] font-bold text-orange-200 tracking-widest uppercase bg-white/10 px-3 py-1 rounded-full">
-                      {outlet.region}
-                    </span>
-                    <h3 className="font-sans font-extrabold text-xl text-white tracking-wide uppercase mt-4">
-                      {outlet.name}
-                    </h3>
-                  </div>
-
-                  {/* Address slides up on hover for the dark card too! */}
-                  <p className="absolute bottom-24 left-10 right-10 text-[11px] text-stone-300 font-light leading-relaxed opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 pointer-events-none">
-                    {outlet.address}
-                  </p>
-
-                  <div className="relative z-10 w-full mt-6">
-                    <a 
-                      href={`https://wa.me/${outlet.waPhone}`}
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="inline-block w-full py-3 bg-[#e6007e] text-white rounded-full text-xs font-bold uppercase tracking-widest text-center shadow-lg hover:bg-[#c4006b] transition-all duration-300"
-                    >
-                      {outlet.hours}
-                    </a>
-                  </div>
-                </div>
-              );
-            }
-
+          
             // ── STANDARD CARDS INTERACTIVE SETUP (With Address Slide-Up Reveal Engine) ──
             return (
               <div 
