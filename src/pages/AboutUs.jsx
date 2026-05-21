@@ -1,144 +1,288 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useEffect, useRef } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
+// Import your saved mascot image asset from your assets directory
+import mascotImg from '../assets/mascot.png';
+
+// Clamp helper function to ensure boundaries are locked between 0 and 1
+const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
 
 function AboutUs() {
-  const componentRef = useRef(null);
-  const sliderRef = useRef(null);
+  const sectionRef = useRef(null);
+  const trackRef = useRef(null);
+  const viewportRef = useRef(null);
+  const spineFillRef = useRef(null);
+  const progBarRef = useRef(null);
 
-  useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      const panels = gsap.utils.toArray('.milestone-panel');
-      
-      gsap.to(panels, {
-        xPercent: -100 * (panels.length - 1),
-        ease: "none",
-        scrollTrigger: {
-          trigger: sliderRef.current,
-          pin: true, 
-          scrub: 1,  
-          snap: 1 / (panels.length - 1), 
-          end: () => `+=${sliderRef.current.offsetWidth}`,
-        }
-      });
-    }, componentRef);
-
-    return () => ctx.revert(); 
-  }, []);
+  // Total wheel delta accumulation value required to fully finish scrolling the track
+  const TOTAL_SCROLL_TICKS = 1600;
 
   const milestones = [
-    { year: "2003", text: "The Japanese inspired bakery first outlet opened in Taman Desa" },
-    { year: "2004", text: "Launched Signature Square Green Tea Cake in Malaysia" },
-    { year: "2011", text: "Launched Signature Hokkaido Cake in Malaysia" },
-    { year: "2012", text: "Cake factory new premises in Bukit Serdang" },
-    { year: "2020", text: "Launched first Signature Carrot Dough Bread in Malaysia" },
-    { year: "2021", text: "Cake factory granted MeSTI certification" },
-    { year: "2022", text: "Bread factory new premises in Glenmarie & launched the 1st IP: Doudoh" },
-    { year: "2023", text: "Bread Factory granted: 1. GMP certification 2. HACCP certification 3. HALAL certification" },
-    { year: "2024", text: "Bread Factory granted MeSTI certification" },
-    { year: "2025", text: "Launched the Wabi-sabi ID concept outlet: SS2, Petaling Jaya" },
+    { year: "2003", tag: "The Beginning", text: "Japanese-inspired bakery first outlet opened in Taman Desa, KL." },
+    { year: "2004", tag: "Signature Creation", text: "Launched Signature Square Green Tea Cake — a nationwide favourite.", badge: "🇲🇾 Malaysia First" },
+    { year: "2011", tag: "Signature Creation", text: "Launched Signature Hokkaido Cake, celebrating Japan's dairy heritage.", badge: "🇲🇾 Malaysia First" },
+    { year: "2012", tag: "Infrastructure", text: "Cake factory moved to new premises in Bukit Serdang." },
+    { year: "2020", tag: "Innovation", text: "Launched Malaysia's first Signature Carrot Dough Bread.", badge: "🇲🇾 Malaysia First" },
+    { year: "2021", tag: "Quality & Trust", text: "Cake factory granted MeSTI Certification." },
+    { year: "2022", tag: "Double Milestone", text: "Bread factory new premises in Glenmarie and launched 1st IP brand: Doudoh." },
+    { year: "2023", tag: "Triple Certification", text: "Bread Factory granted GMP, HACCP, and HALAL Certifications." },
+    { year: "2024", tag: "Quality & Trust", text: "Bread Factory granted MeSTI Certification." },
+    { year: "2025", tag: "Latest Chapter", text: "Launched Wabi-sabi ID concept outlet at SS2, Petaling Jaya." },
   ];
 
+  useEffect(() => {
+    let scrollAccumulator = 0;
+    let currentX = 0;
+    let targetX = 0;
+    let lastTouchY = 0;
+
+    const renderAnimationFrames = (rawProgress) => {
+      if (!trackRef.current || !viewportRef.current) return;
+
+      const track = trackRef.current;
+      const viewport = viewportRef.current;
+      const cards = track.querySelectorAll('.milestone-node-card');
+
+      const maxShift = Math.max(0, track.scrollWidth - viewport.clientWidth);
+
+      // Smooth horizontal animation translation mapping
+      targetX = -rawProgress * maxShift;
+      currentX += (targetX - currentX) * 0.12;
+      track.style.transform = `translateX(${currentX}px)`;
+
+      // Animate cards step-by-step based on exact scroll percentages
+      const revealStep = rawProgress * milestones.length;
+      cards.forEach((cardElement, idx) => {
+        const dot = cardElement.querySelector('.milestone-dot-center');
+        const bubble = cardElement.querySelector('.milestone-card-bubble');
+        const label = cardElement.querySelector('.milestone-year-label');
+
+        if (revealStep > idx) {
+          if (bubble) { bubble.style.opacity = '1'; bubble.style.transform = 'translateY(0)'; }
+          if (label) { 
+            label.style.opacity = '1'; 
+            label.style.transform = 'translateY(0)'; 
+            label.style.color = '#e6007e'; 
+            label.style.webkitTextStroke = '1.5px transparent';
+          }
+          if (dot) { dot.style.backgroundColor = '#e6007e'; dot.style.transform = 'scale(1.3)'; }
+        } else {
+          const isOdd = idx % 2 === 0;
+          if (bubble) { bubble.style.opacity = '0'; bubble.style.transform = isOdd ? 'translateY(12px)' : 'translateY(-12px)'; }
+          if (label) { 
+            label.style.opacity = '0'; 
+            label.style.transform = isOdd ? 'translateY(-8px)' : 'translateY(8px)'; 
+            label.style.color = 'transparent';
+            label.style.webkitTextStroke = '1.5px #e6007e';
+          }
+          if (dot) { dot.style.backgroundColor = '#fdfaf8'; dot.style.transform = 'scale(1)'; }
+        }
+      });
+
+      // Sync loading bars
+      const travelFraction = maxShift > 0 ? Math.abs(currentX) / maxShift : 0;
+      if (spineFillRef.current) spineFillRef.current.style.width = `${travelFraction * 100}%`;
+      if (progBarRef.current) progBarRef.current.style.width = `${rawProgress * 100}%`;
+    };
+
+    const isElementInView = () => {
+      if (!sectionRef.current) return false;
+      const boundingBox = sectionRef.current.getBoundingClientRect();
+      return boundingBox.top <= 1 && boundingBox.bottom > window.innerHeight * 0.3;
+    };
+
+    // Hijack Mouse Wheel Inputs
+    const handleMouseWheel = (e) => {
+      if (!isElementInView()) return;
+
+      if (scrollAccumulator <= 0 && e.deltaY < 0) return;
+      if (scrollAccumulator >= TOTAL_SCROLL_TICKS && e.deltaY > 0) return;
+
+      e.preventDefault();
+
+      scrollAccumulator = clamp(scrollAccumulator + e.deltaY, 0, TOTAL_SCROLL_TICKS);
+      renderAnimationFrames(scrollAccumulator / TOTAL_SCROLL_TICKS);
+    };
+
+    // Track Mobile Touch Start position metrics
+    const handleTouchStart = (e) => {
+      lastTouchY = e.touches[0].clientY;
+    };
+
+    // Hijack Mobile Swipes
+    const handleTouchMove = (e) => {
+      if (!isElementInView()) return;
+
+      const deltaY = lastTouchY - e.touches[0].clientY;
+      lastTouchY = e.touches[0].clientY;
+
+      if (scrollAccumulator <= 0 && deltaY < 0) return;
+      if (scrollAccumulator >= TOTAL_SCROLL_TICKS && deltaY > 0) return;
+
+      e.preventDefault();
+      scrollAccumulator = clamp(scrollAccumulator + deltaY * 2.5, 0, TOTAL_SCROLL_TICKS);
+      renderAnimationFrames(scrollAccumulator / TOTAL_SCROLL_TICKS);
+    };
+
+    // Reset loop if window is scrolled back upwards naturally
+    const handleGlobalScroll = () => {
+      if (!sectionRef.current) return;
+      if (sectionRef.current.getBoundingClientRect().top > 1) {
+        scrollAccumulator = 0;
+        renderAnimationFrames(0);
+      }
+    };
+
+    window.addEventListener('wheel', handleMouseWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('scroll', handleGlobalScroll, { passive: true });
+
+    renderAnimationFrames(0);
+
+    return () => {
+      window.removeEventListener('wheel', handleMouseWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('scroll', handleGlobalScroll);
+    };
+  }, [milestones.length]);
+
   return (
-    <div ref={componentRef} className="bg-[#fffaf8] w-full overflow-x-hidden">
+    <div className="bg-[#fdfaf8] text-stone-800 font-sans overflow-x-hidden antialiased">
       
-      {/* --- SECTION 1: INTRO LANDING --- */}
-      <section className="min-h-screen w-full flex flex-col items-center justify-center px-6 sm:px-12 text-center max-w-4xl mx-auto">
-        <p className="text-[#e6007e] uppercase tracking-[0.35em] text-xs font-bold mb-3">
-          Our Heritage
-        </p>
-        <div className="flex items-center justify-center gap-4 mb-6 w-full">
-          <div className="w-14 h-[0.5px] bg-pink-200/70"></div>
-          <span className="text-[#e6007e] text-sm">♥</span>
-          <div className="w-14 h-[0.5px] bg-pink-200/70"></div>
-        </div>
-        <h1 className="text-5xl sm:text-6xl font-serif font-light text-stone-900 mb-6 tracking-tight">
-          Our History
-        </h1>
-        <p className="text-[#e6007e] font-serif italic text-xl mb-6">
-          Taste of Happiness
-        </p>
-        <p className="text-stone-500 text-lg font-light leading-relaxed max-w-2xl mb-12">
-          Established in 2003 by Taiwanese pastry master Mr. Lu Chun Neng, RT PASTRY is Malaysia’s Japanese-inspired bakery chain — a brand born from the meeting of craft, culture, and care. 
-        </p>
-        <div className="text-stone-400 text-xs tracking-widest animate-bounce uppercase font-bold">
-          Scroll Down to Explore Our Journey ↓
+      {/* --- HERO SPLIT SECTION --- */}
+      <section className="bg-white w-full px-6 pt-24 pb-16 border-b border-stone-100">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+          
+          {/* Left Column Mascot Area */}
+          <div className="md:col-span-5 flex flex-col items-center justify-center select-none relative">
+            <img 
+              src={mascotImg} 
+              alt="RT Pastry Mascot" 
+              className="w-64 sm:w-72 md:w-80 h-auto object-contain pointer-events-none relative z-10" 
+            />
+            <div className="w-40 h-4 bg-stone-900/5 rounded-full blur-md mt-1 transform scale-x-110" />
+          </div>
+
+          {/* Right Column Content Area */}
+          <div className="md:col-span-7 text-center md:text-left flex flex-col items-center md:items-start pl-0 md:pl-4">
+            <p className="text-[11px] uppercase tracking-[0.45em] text-[#e6007e] mb-2 font-bold">
+              Est. 2003 · Kuala Lumpur
+            </p>
+
+            <div className="flex items-center gap-3 my-2 opacity-60 w-36 justify-center md:justify-start">
+              <span className="w-6 h-[1px] bg-stone-200" />
+              <span className="text-[#e6007e] text-[10px]">♥</span>
+              <span className="w-full h-[1px] bg-stone-200" />
+            </div>
+            
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-light leading-[1.1] tracking-tight text-stone-800 mt-2 mb-6">
+              Baked with <br />
+              <span className="italic font-normal text-[#e6007e]">Japanese Soul</span>
+            </h1>
+            
+            <p className="text-stone-400 max-w-xl font-light text-base sm:text-lg leading-relaxed">
+              Two decades of crafting the finest Japanese-inspired breads and cakes for Malaysia — one loaf at a time.
+            </p>
+          </div>
+
         </div>
       </section>
 
-      {/* --- SECTION 2: GSAP ALTERNATING TIMELINE --- */}
-      <section ref={sliderRef} className="h-screen w-full flex overflow-hidden bg-[#fffaf8] relative border-t border-stone-100">
+      {/* --- TIMELINE TRACK SECTION (Fixed Height Pinned Wrapper Frame) --- */}
+      <section ref={sectionRef} className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center items-center bg-[#fdfaf8] z-20 px-6">
         
-        {/* Subtle grid pattern background */}
-        <div className="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#e6007e_0.5px,transparent_0.5px)] [background-size:24px_24px]" />
-        
-        <div className="flex h-full whitespace-nowrap will-change-transform">
+        {/* Absolute Sizing Internal Node Stack to Completely Eliminate Extra Padding Gaps */}
+        <div className="w-full max-w-6xl min-h-[480px] flex flex-col justify-between items-center relative">
           
-          {/* Main timeline baseline running directly through the center */}
-          <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-pink-100 via-pink-200 to-pink-100 top-1/2 transform -translate-y-1/2 z-0" />
+          {/* Section Headers Block */}
+          <div className="text-center w-full block">
+            <p className="font-sans text-[10px] tracking-[0.45em] uppercase text-[#e6007e] font-bold mb-1">Our Presence</p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-light text-stone-800">Our <span className="italic font-normal text-[#e6007e]">Milestones</span></h2>
+            
+            <div className="w-28 h-[2px] bg-stone-100 mx-auto mt-3 rounded-full overflow-hidden">
+              <div ref={progBarRef} className="h-full w-0 bg-[#e6007e]" />
+            </div>
+          </div>
 
-          {milestones.map((item, idx) => {
-            const isUp = idx % 2 === 0;
+          {/* Timeline Viewport Wrapper Track */}
+          <div ref={viewportRef} className="w-full relative overflow-hidden py-4 flex items-center mt-auto mb-auto">
+            <div ref={trackRef} className="flex items-center relative px-[5vw] will-change-transform">
+              
+              {/* Baseline wire track centered exactly on node markers */}
+              <div className="absolute left-[5vw] right-0 top-1/2 h-[1px] bg-stone-200/60 -translate-y-1/2 pointer-events-none">
+                <div ref={spineFillRef} className="h-full w-0 bg-[#e6007e]/40" />
+              </div>
 
-            return (
-              <div 
-                key={idx} 
-                className="milestone-panel w-screen h-full flex-shrink-0 flex items-center justify-center px-6 md:px-24 relative select-none"
-              >
-                <div className={`relative z-10 flex flex-col max-w-xl w-full items-center text-center ${
-                  isUp ? 'justify-end pb-32 h-1/2 top-0 absolute' : 'justify-start pt-32 h-1/2 bottom-0 absolute'
-                }`}>
-                  
-                  {/* Alternating Connecting Line Vertical Anchor */}
-                  <div className={`absolute left-1/2 transform -translate-x-1/2 w-[1px] bg-pink-200 ${
-                    isUp ? 'bottom-0 h-32' : 'top-0 h-32'
-                  }`} />
-
-                  {/* Node Dot where card timeline meets center rail */}
-                  <div className={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#e6007e] rounded-full border-4 border-[#fffaf8] shadow-sm ${
-                    isUp ? 'bottom-[-8px]' : 'top-[-8px]'
-                  }`} />
-
-                  {/* Premium Layered Card Structure */}
-                  <div className="bg-white border border-stone-100/80 p-6 md:p-8 rounded-3xl shadow-xl max-w-md relative hover:shadow-2xl hover:border-pink-100 transition-all duration-300 transform hover:-translate-y-1">
+              {milestones.map((item, idx) => {
+                const isOdd = idx % 2 === 0;
+                return (
+                  <div 
+                    key={idx} 
+                    className="milestone-node-card flex-shrink-0 w-[240px] flex flex-col items-center relative"
+                  >
                     
-                    {/* Giant Elegant Year Header tucked inside card */}
-                    <div className="text-4xl md:text-5xl font-serif font-bold text-stone-200 tracking-tight mb-2">
-                      {item.year}
+                    {/* --- TOP CONTAINER LAYOUT (Height increased for content) --- */}
+                    <div className="h-[140px] w-full flex flex-col justify-end items-center px-3 pb-3">
+                      {isOdd ? (
+                        <div className="milestone-card-bubble bg-white border border-stone-100 rounded-3xl p-5 w-full shadow-[0_15px_40px_rgba(0,0,0,0.015)] transition-all duration-500 ease-out">
+                          <span className="text-[8px] tracking-widest font-bold text-[#e6007e] uppercase block mb-1">{item.tag}</span>
+                          <p className="font-serif text-[13px] leading-relaxed text-stone-700 whitespace-normal">
+                            {item.text.includes("Taman Desa") ? (
+                              <>Japanese-inspired bakery first outlet opened in <strong className="font-semibold text-stone-900">Taman Desa</strong>, KL.</>
+                            ) : item.text}
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="milestone-year-label font-serif text-4xl font-light tracking-tight text-center transition-all duration-500">
+                          {item.year}
+                        </div>
+                      )}
                     </div>
 
-                    <span className="text-[#e6007e] text-[10px] uppercase tracking-widest font-bold block mb-3">
-                      Chapter 0{idx + 1}
-                    </span>
-                    
-                    <p className="text-stone-600 font-light text-sm md:text-base leading-relaxed whitespace-normal">
-                      {item.text}
-                    </p>
+                    {/* --- NODE BAR CENTER POINT --- */}
+                    <div className="h-0 flex flex-col items-center justify-center relative flex-shrink-0">
+                      <div className="milestone-dot-center w-3 h-3 rounded-full border-2 border-[#e6007e]/40 bg-[#fdfaf8] z-30 transition-all duration-300" />
+                    </div>
+
+                    {/* --- BOTTOM CONTAINER LAYOUT (Height increased for content) --- */}
+                    <div className="h-[140px] w-full flex flex-col justify-start items-center px-3 pt-3">
+                      {!isOdd ? (
+                        <div className="milestone-card-bubble bg-white border border-stone-100 rounded-3xl p-5 w-full shadow-[0_15px_40px_rgba(0,0,0,0.015)] transition-all duration-500 ease-out">
+                          <span className="text-[8px] tracking-widest font-bold text-[#e6007e] uppercase block mb-1">{item.tag}</span>
+                          <p className="font-serif text-[13px] leading-relaxed text-stone-700 whitespace-normal">
+                            {item.text}
+                          </p>
+                          {item.badge && (
+                            <span className="inline-block mt-2 text-[9px] bg-[#fdf2f7] border border-pink-100 text-[#e6007e] rounded-full px-2.5 py-0.5 font-bold tracking-wide">
+                              {item.badge}
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="milestone-year-label font-serif text-4xl font-light tracking-tight text-center transition-all duration-500">
+                          {item.year}
+                        </div>
+                      )}
+                    </div>
+
                   </div>
+                );
+              })}
 
-                </div>
-
-                {/* Progress Flag Indicator */}
-                <div className="absolute bottom-12 right-12 text-stone-300 text-xs font-mono tracking-widest">
-                  {idx + 1} / {milestones.length}
-                </div>
-              </div>
-            );
-          })}
-
+            </div>
+          </div>
         </div>
+
       </section>
 
-      {/* --- SECTION 3: OUTRO WRAP --- */}
-      <section className="min-h-[50vh] w-full flex flex-col items-center justify-center bg-[#fffaf8] px-6 py-20 text-center border-t border-stone-100">
-        <h2 className="text-3xl font-serif font-light text-stone-900 mb-4">
-          And The Story Continues...
-        </h2>
-        <p className="text-stone-500 font-light max-w-md leading-relaxed text-sm">
-          We process premium ingredients day after day with undivided love, setting the signature benchmark for Malaysian baking excellence.
-        </p>
+      {/* --- CLOSING SECTION --- */}
+      <section className="bg-white text-stone-800 py-32 px-6 text-center relative border-t border-stone-100 z-30">
+        <h2 className="font-serif text-4xl sm:text-5xl font-light relative z-10">More chapters to come.</h2>
+        <p className="mt-4 text-stone-400 tracking-wide text-sm relative z-10 font-light">RT Pastry Holdings Berhad — Crafting Japan's spirit, Malaysia's way.</p>
+        <a href="#" className="inline-block mt-10 bg-[#e6007e] text-white text-xs uppercase tracking-widest px-8 py-3.5 rounded-full font-bold shadow-lg shadow-[#e6007e]/10 hover:bg-[#c4006b] transition-all duration-300 z-10 relative">
+          Discover Our Products
+        </a>
       </section>
 
     </div>
