@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
 
+// picture
+import cheesecakeImg from '../assets/cheesecake.png';
+import chocolateImg from '../assets/blackforest.png';
+import fruitImg from '../assets/fruit.png';
+import buttercImg from '../assets/butterc.png';
+import matcharedImg from '../assets/matchared.png';
+import redvelcImg from '../assets/redvelc.png';
+import croissantImg from '../assets/croissant.png';
+import swissrollImg from '../assets/swissroll.png';
+
 export default function Order() {
   const [selectedSize, setSelectedSize] = useState('6 inch tier (Est Total: RM300)');
   
@@ -9,21 +19,21 @@ export default function Order() {
 
   const products = {
     cakes: [
-      { id: "c1", name: "American Cheesecake 6\"", price: 78.00, tag: "Signature" },
-      { id: "c2", name: "Baby Bear — Black Forest 6\"", price: 78.00, tag: "Cute Classic" },
-      { id: "c3", name: "Baby Bear — Mixed Fruit 8\"", price: 138.00, tag: "Best Seller" }
+      { id: "c1", name: "American Cheesecake 6\"", price: 78.00, tag: "Signature", image: cheesecakeImg },
+      { id: "c2", name: "Black Forest Cake 6\"", price: 78.00, tag: "Cute Classic", image: chocolateImg }, // use placeholder or matching image
+      { id: "c3", name: "Mixed Fruit Cake 8\"", price: 138.00, tag: "Best Seller", image: fruitImg }
     ],
     cookies: [
-      { id: "k1", name: "Almond Cookies Square Box", price: 32.90 },
-      { id: "k2", name: "Almond Cookies 16 pcs Pack", price: 18.90 }
+      { id: "k1", name: "Almond Cookies", price: 32.90, image: buttercImg }, // example mapping
+      { id: "k2", name: "Red Velvet Cookies", price: 18.90, image: buttercImg }
     ],
     breads: [
-      { id: "b1", name: "Artisan Sourdough Loaf", price: 12.00 },
-      { id: "b2", name: "Premium Butter Croissant", price: 7.50 }
+      { id: "b1", name: "Artisan Sourdough Loaf", price: 12.00, image: buttercImg },
+      { id: "b2", name: "Premium Butter Croissant", price: 7.50, image: croissantImg }
     ],
     swissRolls: [
-      { id: "s1", name: "Hokkaido Fresh Cream Swiss Roll", price: 24.00 },
-      { id: "s2", name: "Matcha Red Bean Swiss Roll", price: 26.00 }
+      { id: "s1", name: "Hokkaido Fresh Cream Swiss Roll", price: 24.00, image: swissrollImg },
+      { id: "s2", name: "Matcha Red Bean Swiss Roll", price: 26.00, image: matcharedImg }
     ]
   };
 
@@ -125,6 +135,11 @@ export default function Order() {
               <div key={item.id} className="bg-white rounded-[32px] p-6 border border-stone-100 shadow-sm flex flex-col justify-between min-h-[380px] group hover:shadow-xl hover:-translate-y-1 transition-all duration-500">
                 <div className="w-full h-56 bg-stone-100 rounded-[24px] overflow-hidden relative">
                   <div className="absolute top-3 left-3 bg-[#fdf2f7] text-[#e6007e] text-[9px] font-bold tracking-wider uppercase px-3 py-1 rounded-full z-10">{item.tag}</div>
+                  <img 
+                    src={item.image} 
+                    alt={item.name} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                   <div className="w-full h-full bg-[#ede7df] flex items-center justify-center font-mono text-stone-400 text-xs">[ Product Photo ]</div>
                 </div>
                 <div className="mt-4">
@@ -153,7 +168,11 @@ export default function Order() {
               {products.cookies.map((item) => (
                 <div key={item.id} className="bg-white p-5 rounded-2xl border border-stone-100 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-[#ede7df] rounded-xl shrink-0 flex items-center justify-center text-[8px] text-stone-400">[ Photo ]</div>
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      className="w-14 h-14 bg-[#ede7df] rounded-xl shrink-0 object-cover"
+                    />
                     <div>
                       <h4 className="font-sans text-xs font-bold text-stone-800 uppercase tracking-wide leading-tight">{item.name}</h4>
                       <p className="font-serif italic text-sm text-[#b85580] mt-1">RM{item.price.toFixed(2)}</p>
@@ -167,12 +186,16 @@ export default function Order() {
 
           {/* Bakery Bread */}
           <div>
-            <h2 className="font-serif italic text-xl text-stone-800 mb-6 border-b border-stone-200 pb-2">Artisan Bread</h2>
+            <h2 className="font-serif italic text-xl text-stone-800 mb-6 border-b border-stone-200 pb-2">Bread</h2>
             <div className="space-y-4">
               {products.breads.map((item) => (
                 <div key={item.id} className="bg-white p-5 rounded-2xl border border-stone-100 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-[#ede7df] rounded-xl shrink-0 flex items-center justify-center text-[8px] text-stone-400">[ Photo ]</div>
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      className="w-14 h-14 bg-[#ede7df] rounded-xl shrink-0 object-cover"
+                    />
                     <div>
                       <h4 className="font-sans text-xs font-bold text-stone-800 uppercase tracking-wide leading-tight">{item.name}</h4>
                       <p className="font-serif italic text-sm text-[#b85580] mt-1">RM{item.price.toFixed(2)}</p>
@@ -186,12 +209,16 @@ export default function Order() {
 
           {/* Swiss Rolls */}
           <div>
-            <h2 className="font-serif italic text-xl text-stone-800 mb-6 border-b border-stone-200 pb-2">Hokkaido Swiss Rolls</h2>
+            <h2 className="font-serif italic text-xl text-stone-800 mb-6 border-b border-stone-200 pb-2">Swiss Rolls</h2>
             <div className="space-y-4">
               {products.swissRolls.map((item) => (
                 <div key={item.id} className="bg-white p-5 rounded-2xl border border-stone-100 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-[#ede7df] rounded-xl shrink-0 flex items-center justify-center text-[8px] text-stone-400">[ Photo ]</div>
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      className="w-14 h-14 bg-[#ede7df] rounded-xl shrink-0 object-cover"
+                    />
                     <div>
                       <h4 className="font-sans text-xs font-bold text-stone-800 uppercase tracking-wide leading-tight">{item.name}</h4>
                       <p className="font-serif italic text-sm text-[#b85580] mt-1">RM{item.price.toFixed(2)}</p>
