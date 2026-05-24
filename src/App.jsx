@@ -1,11 +1,12 @@
 import React from 'react';
 // 1. IMPORT REACT ROUTER UTILITIES
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ScrollToTop from "./components/ScrollToTop";
 
 // 2. IMPORT LAYOUT COMPONENTS
 import Header from './components/Header';
 import Footer from './components/Footer';
-import FloatingSocials from './components/FloatingSocials'; // Added your new floating socials component
+import FloatingSocials from './components/FloatingSocials'; 
 
 // 3. IMPORT INDIVIDUAL PAGES
 import Home from './pages/Home';
@@ -22,6 +23,9 @@ function App() {
 
         {/* The persistent navigation header at the top of every page */}
         <Header />
+
+        {/* 🌟 PERFECT SPOT: Put it right here, outside of Routes! */}
+        <ScrollToTop /> 
 
         {/* The Dynamic Main Content Area */}
         <main className="flex-grow w-full">
