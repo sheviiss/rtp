@@ -1,13 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
     <footer className="bg-[#fffaf8] text-stone-700 pt-16 pb-8 mt-auto border-t border-stone-200/60">
-      {/* Changed "grid-cols-1" text alignment to "text-center md:text-left" */}
+      
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
         
         {/* Column 1: Brand/About & Socials */}
-        {/* Added "items-center md:items-start" so content centers on mobile */}
         <div className="flex flex-col items-center md:items-start gap-5">
           <div className="flex flex-col gap-2">
             <h3 className="text-xl font-bold tracking-wider text-[#e6007e]">RT Pastry</h3>
@@ -46,13 +46,14 @@ function Footer() {
           </div>
         </div>
 
-        {/* Column 2: Quick Links */}
+        {/* Column 2: Quick Links - MATCHED TO YOUR PAGES FOLDER */}
         <div className="flex flex-col gap-4">
           <h3 className="text-sm font-bold uppercase tracking-widest text-[#e6007e]">Explore</h3>
           <ul className="text-sm text-stone-500 space-y-3">
-            <li><a href="#home" className="hover:text-[#e6007e] transition duration-200">Home</a></li>
-            <li><a href="#menu" className="hover:text-[#e6007e] transition duration-200">Our Menu</a></li>
-            <li><a href="#contact" className="hover:text-[#e6007e] transition duration-200">Contact & Locations</a></li>
+            <li><Link to="/" className="hover:text-[#e6007e] transition duration-200">Home</Link></li>
+            <li><Link to="/about" className="hover:text-[#e6007e] transition duration-200">About Us</Link></li>
+            <li><Link to="/outlets" className="hover:text-[#e6007e] transition duration-200">Our Outlets</Link></li>
+            <li><Link to="/contact" className="hover:text-[#e6007e] transition duration-200">Contact Us</Link></li>
           </ul>
         </div>
 
