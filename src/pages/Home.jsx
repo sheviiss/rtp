@@ -114,21 +114,21 @@ function CircleStats() {
   },[]);
 
   const stats=[
-    {r:r.sl[0],n:'500+',l:'Products',  s:'quality bakery',pos:{top:16,left:16}},
-    {r:r.sl[1],n:'17',  l:'Outlets',   s:'across KV',     pos:{top:16,right:16}},
-    {r:r.sl[2],n:'23',  l:'Years',     s:'of excellence', pos:{bottom:16,left:16}},
-    {r:r.sl[3],n:'360', l:'Days Fresh',s:'baked daily',   pos:{bottom:16,right:16}},
+    {r:r.sl[0],n:'500+',l:'Products',  s:'quality bakery',pos:{top:'6%',left:'6%'}},
+    {r:r.sl[1],n:'17',  l:'Outlets',   s:'across KV',     pos:{top:'6%',right:'6%'}},
+    {r:r.sl[2],n:'23',  l:'Years',     s:'of excellence', pos:{bottom:'6%',left:'6%'}},
+    {r:r.sl[3],n:'360', l:'Days Fresh',s:'baked daily',   pos:{bottom:'6%',right:'6%'}},
   ];
 
   return(
     <section ref={ref} style={{
       position:'sticky',top:0,height:'100vh',zIndex:10,
       display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',
-      overflow:'hidden',background:C.cream2,
+      overflow:'hidden',background:C.cream2,padding: '0 20px'
     }}>
       <div style={{textAlign:'center',marginBottom:20,position:'relative',zIndex:2}}>
         <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:8}}>By the numbers</p>
-        <h2 style={{fontFamily:"'Fraunces',serif",fontSize:'clamp(26px,3vw,40px)',fontWeight:300,color:C.text,lineHeight:1.15,margin:0,fontStyle:'italic'}}>
+        <h2 style={{fontFamily:"'Fraunces',serif",fontSize:'clamp(24px,3vw,40px)',fontWeight:300,color:C.text,lineHeight:1.15,margin:0,fontStyle:'italic'}}>
           23 years of <em style={{color:C.pinkDark}}>baking happiness</em>
         </h2>
       </div>
@@ -136,12 +136,13 @@ function CircleStats() {
       {/* watermark */}
       <div ref={r.wm} aria-hidden style={{
         position:'absolute',fontFamily:"'Fraunces',serif",fontStyle:'italic',
-        fontSize:280,fontWeight:300,color:`rgba(180,100,130,0.05)`,letterSpacing:'-0.06em',
+        fontSize:'clamp(140px, 20vw, 280px)',fontWeight:300,color:`rgba(180,100,130,0.05)`,letterSpacing:'-0.06em',
         pointerEvents:'none',userSelect:'none',
         top:'50%',left:'50%',transform:'translate(-50%,-50%)',opacity:0,whiteSpace:'nowrap',
       }}>RT</div>
 
-      <div style={{position:'relative',width:440,height:440,flexShrink:0}}>
+      {/* Responsive Wrapper for SVG */}
+      <div className="rt-circle-container" style={{position:'relative',width:'100%',maxWidth:440,aspectRatio:'1/1',flexShrink:0}}>
         <svg style={{position:'absolute',inset:0,width:'100%',height:'100%',overflow:'visible'}}
           viewBox="0 0 460 460" aria-hidden>
           <circle cx="230" cy="230" r="185" fill="none" stroke={`rgba(180,120,150,0.12)`} strokeWidth="1.5"/>
@@ -166,7 +167,7 @@ function CircleStats() {
             display:'flex',flexDirection:'column',alignItems:'center',textAlign:'center',
             pointerEvents:'none',opacity:.08,
           }}>
-            <span style={{fontFamily:"'Fraunces',serif",fontStyle:'italic',fontWeight:300,fontSize:50,lineHeight:1,color:C.pinkDark,letterSpacing:'-0.02em'}}>{n}</span>
+            <span style={{fontFamily:"'Fraunces',serif",fontStyle:'italic',fontWeight:300,fontSize:'clamp(32px, 4vw, 50px)',lineHeight:1,color:C.pinkDark,letterSpacing:'-0.02em'}}>{n}</span>
             <span style={{fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.3em',textTransform:'uppercase',color:C.muted,fontWeight:400,marginTop:5}}>{l}</span>
             <span style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:'italic',fontSize:12,color:C.rose,fontWeight:300,marginTop:2}}>{s}</span>
           </div>
@@ -174,14 +175,14 @@ function CircleStats() {
 
         <div ref={r.center} style={{
           position:'absolute',inset:0,display:'flex',flexDirection:'column',
-          alignItems:'center',justifyContent:'center',pointerEvents:'none',opacity:0,
+          alignItems:'center',justifyContent:'center',pointerEvents:'none',opacity:0,padding:20
         }}>
           <img src={logo} alt="RT Pastry" style={{
-            width:80,height:80,objectFit:'contain',borderRadius:'50%',
+            width:'clamp(50px, 15vw, 80px)',height:'clamp(50px, 15vw, 80px)',objectFit:'contain',borderRadius:'50%',
             background:'#fff',padding:10,
             boxShadow:`0 0 0 10px rgba(212,115,154,0.08),0 0 0 20px rgba(212,115,154,0.04)`,
           }}/>
-          <p style={{marginTop:12,fontFamily:"'Cormorant Garamond',serif",fontStyle:'italic',fontSize:14,color:C.muted,textAlign:'center',lineHeight:1.5}}>
+          <p style={{marginTop:12,fontFamily:"'Cormorant Garamond',serif",fontStyle:'italic',fontSize:'clamp(11px, 2.5vw, 14px)',color:C.muted,textAlign:'center',lineHeight:1.5}}>
             Baking happiness<br/>since 2001
           </p>
         </div>
@@ -196,7 +197,7 @@ function CircleStats() {
         <span ref={r.pct}>0%</span>
       </div>
       <div ref={r.cue} aria-hidden style={{
-        position:'absolute',bottom:28,right:48,display:'flex',flexDirection:'column',
+        position:'absolute',bottom:28,right:'5%',display:'flex',flexDirection:'column',
         alignItems:'center',gap:6,fontFamily:'Jost,sans-serif',fontSize:8,
         letterSpacing:'0.3em',textTransform:'uppercase',color:C.faint,
         animation:'bounceCue 1.8s ease-in-out infinite',
@@ -208,9 +209,7 @@ function CircleStats() {
   );
 }
 
-/* ════════════════════════════════════════════
-   HOME
-════════════════════════════════════════════ */
+/* ──═ HOME PAGE ═── */
 export default function Home() {
   return(
     <>
@@ -219,28 +218,83 @@ export default function Home() {
         @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
         @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
         @keyframes spinSlow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        
         .rt-hover-card{transition:transform .4s cubic-bezier(.2,0,.2,1),box-shadow .4s}
         .rt-hover-card:hover{transform:translateY(-3px)!important;box-shadow:0 16px 40px rgba(180,100,140,0.1)!important}
         .rt-outlet:hover{border-color:rgba(180,120,150,0.4)!important;background:rgba(250,247,244,0.8)!important}
         .rt-ticker:hover .rt-inner{animation-play-state:paused}
+
+        /* ── Base Mobile Layout Rules ── */
+        .rt-hero-grid, .rt-about-grid, .rt-product-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+        .rt-hero-img-panel {
+          height: 45vh;
+          min-height: 320px;
+        }
+        .rt-outlet-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+        .rt-shop-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        /* Mobile Order Flow Mechanics */
+        .rt-img-order-handler { order: 1 !important; }
+        .rt-text-order-handler { order: 2 !important; }
+
+        /* ── Tablet & Desktop Viewports (768px+) ── */
+        @media (min-width: 768px) {
+          .rt-hero-grid, .rt-about-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+          .rt-hero-img-panel {
+            height: auto;
+          }
+          .rt-product-grid-reverse {
+            grid-template-columns: 3fr 2fr !important;
+          }
+          .rt-product-grid-normal {
+            grid-template-columns: 2fr 3fr !important;
+          }
+          .rt-product-grid-reverse .rt-img-order-handler { order: 2 !important; }
+          .rt-product-grid-reverse .rt-text-order-handler { order: 1 !important; }
+          
+          .rt-product-grid-normal .rt-img-order-handler { order: 1 !important; }
+          .rt-product-grid-normal .rt-text-order-handler { order: 2 !important; }
+
+          .rt-outlet-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .rt-shop-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .rt-outlet-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
       `}</style>
 
       <div style={{fontFamily:'Jost,sans-serif',background:C.cream,color:C.text,overflowX:'hidden'}}>
 
         {/* ══════════════════════════════
-            HERO
+            HERO SECTION
         ══════════════════════════════ */}
-        <section style={{
-          height:'83vh', minHeight:'86vh',display:'grid',gridTemplateColumns:'1fr 1fr',
-          borderBottom:`1px solid ${C.border}`,
-        }}>
-          {/* LEFT */}
+        <section className="rt-hero-grid" style={{ borderBottom: `1px solid ${C.border}` }}>
+          {/* LEFT CONTENT */}
           <div style={{
-            padding:'110px 56px 80px',display:'flex',flexDirection:'column',
+            padding:'clamp(60px, 8vw, 110px) clamp(24px, 5vw, 56px) 80px',display:'flex',flexDirection:'column',
             justifyContent:'center',position:'relative',
             background:`linear-gradient(150deg,${C.cream} 0%,#f8f0f3 100%)`,
           }}>
-            {/* very subtle grid lines */}
             <div style={{
               position:'absolute',inset:0,
               backgroundImage:`linear-gradient(to right,rgba(180,120,150,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(180,120,150,0.04) 1px,transparent 1px)`,
@@ -248,7 +302,6 @@ export default function Home() {
             }}/>
 
             <div style={{animation:'fadeUp .9s ease both',position:'relative'}}>
-              {/* eyebrow */}
               <div style={{
                 display:'inline-flex',alignItems:'center',gap:8,
                 fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',
@@ -261,7 +314,7 @@ export default function Home() {
 
               <h1 style={{
                 fontFamily:"'Fraunces',serif",
-                fontSize:'clamp(48px,6vw,82px)',fontWeight:300,
+                fontSize:'clamp(42px,6vw,82px)',fontWeight:300,
                 lineHeight:.94,letterSpacing:'-0.02em',color:C.text,
                 marginBottom:0,fontStyle:'italic',
               }}>
@@ -299,21 +352,20 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 23 years badge — soft */}
             <div style={{
-              position:'absolute',bottom:40,right:40,
-              width:88,height:88,
+              position:'absolute',bottom:24,right:24,
+              width:76,height:76,
               border:`1px solid ${C.borderMid}`,borderRadius:'50%',
               background:'rgba(255,255,255,0.7)',backdropFilter:'blur(8px)',
               display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',
             }}>
-              <span style={{fontFamily:"'Fraunces',serif",fontSize:30,fontWeight:300,fontStyle:'italic',color:C.pinkDark,lineHeight:1}}>23</span>
+              <span style={{fontFamily:"'Fraunces',serif",fontSize:26,fontWeight:300,fontStyle:'italic',color:C.pinkDark,lineHeight:1}}>23</span>
               <span style={{fontFamily:'Jost,sans-serif',fontSize:7,letterSpacing:'0.28em',fontWeight:400,color:C.faint,marginTop:3,textTransform:'uppercase'}}>years</span>
             </div>
           </div>
 
-          {/* RIGHT — image */}
-          <div style={{position:'relative',overflow:'hidden',background:C.cream3}}>
+          {/* RIGHT HERO IMAGE */}
+          <div className="rt-hero-img-panel" style={{position:'relative',overflow:'hidden',background:C.cream3}}>
             <img src={store} alt="RT Pastry" style={{
               width:'100%',height:'100%',objectFit:'cover',
               filter:'brightness(0.97) saturate(0.9)',
@@ -321,94 +373,89 @@ export default function Home() {
             }}
             onMouseEnter={e=>e.currentTarget.style.transform='scale(1.03)'}
             onMouseLeave={e=>e.currentTarget.style.transform='scale(1)'}/>
-            {/* soft gradient overlay bottom */}
             <div style={{
               position:'absolute',bottom:0,left:0,right:0,height:'40%',
               background:`linear-gradient(to top,rgba(250,247,244,0.6),transparent)`,
             }}/>
             <div style={{
-              position:'absolute',bottom:28,left:28,
+              position:'absolute',bottom:24,left:24,right:24,
               background:'rgba(250,247,244,0.88)',backdropFilter:'blur(10px)',
               border:`1px solid ${C.border}`,padding:'12px 20px',
             }}>
               <p style={{fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.28em',textTransform:'uppercase',color:C.faint,marginBottom:3}}>Est. 2001</p>
-              <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,fontStyle:'italic',color:C.text,fontWeight:300}}>17 outlets across Klang Valley</p>
+              <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:15,fontStyle:'italic',color:C.text,fontWeight:300,margin:0}}>17 outlets across Klang Valley</p>
             </div>
           </div>
         </section>
 
         {/* ══════════════════════════════
-            TICKER — very soft
+            RUNNING TICKER
         ══════════════════════════════ */}
         <div className="rt-ticker" style={{
-          background:C.cream3,padding:'12px 0',
-          overflow:'hidden',whiteSpace:'nowrap',
-          borderBottom:`1px solid ${C.border}`,
+          background: C.cream3,
+          padding: '12px 0',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          borderBottom: `1px solid ${C.border}`,
         }}>
-          <div className="rt-inner" style={{display:'inline-flex',animation:'ticker 28s linear infinite',width:'max-content'}}>
-            {['Freshly Baked Daily','17 Outlets','500+ Products','23 Years of Excellence','Delivery & Pick Up','Rich in Vitamins & Minerals',
-              'Freshly Baked Daily','17 Outlets','500+ Products','23 Years of Excellence','Delivery & Pick Up','Rich in Vitamins & Minerals'].map((t,i)=>(
+          <div className="rt-inner" style={{ display: 'inline-flex', animation: 'ticker 28s linear infinite', width: 'max-content' }}>
+            {['Freshly Baked Daily', '17 Outlets', '500+ Products', '23 Years of Excellence', 'Delivery & Pick Up', 'Rich in Vitamins & Minerals',
+              'Freshly Baked Daily', '17 Outlets', '500+ Products', '23 Years of Excellence', 'Delivery & Pick Up', 'Rich in Vitamins & Minerals'].map((t, i) => (
               <React.Fragment key={i}>
-                <span style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.28em',textTransform:'uppercase',color:C.muted,fontWeight:300,padding:'0 28px'}}>{t}</span>
-                <span style={{color:C.border,padding:'0 4px'}}>·</span>
+                <span style={{ fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.28em', textTransform: 'uppercase', color: C.muted, fontWeight: 300, padding: '0 28px' }}>{t}</span>
+                <span style={{ color: C.border, padding: '0 4px' }}>·</span>
               </React.Fragment>
             ))}
           </div>
         </div>
 
         {/* ══════════════════════════════
-            ABOUT — cream, side by side
+            ABOUT / STORY SECTION
         ══════════════════════════════ */}
-        <section style={{
-          display:'grid',gridTemplateColumns:'1fr 1fr',
-          borderBottom:`1px solid ${C.border}`,
-          background:C.cream,
-        }}>
+        <section className="rt-about-grid" style={{ borderBottom: `1px solid ${C.border}`, background: C.cream }}>
           {/* LEFT — spinning logo panel */}
           <div style={{
-            position:'relative',overflow:'hidden',
-            background:`linear-gradient(135deg,${C.cream} 0%,#f0e8ed 100%)`,
-            display:'flex',alignItems:'center',justifyContent:'center',
-            padding:'80px 56px',minHeight:480,
-            borderRight:`1px solid ${C.border}`,
+            position: 'relative', overflow: 'hidden',
+            background: `linear-gradient(135deg,${C.cream} 0%,#f0e8ed 100%)`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: '60px 24px', minHeight: 360,
           }}>
-            {/* very faint spinning rings */}
-            <div style={{position:'absolute',width:300,height:300,borderRadius:'50%',border:`1px dashed rgba(180,120,150,0.12)`,animation:'spinSlow 80s linear infinite'}}/>
-            <div style={{position:'absolute',width:220,height:220,borderRadius:'50%',border:`1px solid rgba(180,120,150,0.08)`,animation:'spinSlow 50s linear infinite reverse'}}/>
+            <div style={{ position: 'absolute', width: 260, height: 260, borderRadius: '50%', border: `1px dashed rgba(180,120,150,0.12)`, animation: 'spinSlow 80s linear infinite' }} />
+            <div style={{ position: 'absolute', width: 190, height: 190, borderRadius: '50%', border: `1px solid rgba(180,120,150,0.08)`, animation: 'spinSlow 50s linear infinite reverse' }} />
 
             <div style={{
-              width:148,height:148,borderRadius:'50%',
-              background:'rgba(255,255,255,0.8)',backdropFilter:'blur(8px)',
-              border:`1px solid ${C.border}`,
-              display:'flex',alignItems:'center',justifyContent:'center',
-              padding:20,position:'relative',zIndex:2,
-              boxShadow:`0 8px 40px rgba(180,100,130,0.1)`,
+              width: 130, height: 130, borderRadius: '50%',
+              background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)',
+              border: `1px solid ${C.border}`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              padding: 20, position: 'relative', zIndex: 2,
+              boxShadow: `0 8px 40px rgba(180,100,130,0.1)`,
             }}>
-              <img src={logo} alt="RT Pastry" style={{width:'100%',objectFit:'contain'}}/>
+              <img src={logo} alt="RT Pastry" style={{ width: '100%', objectFit: 'contain' }}/>
             </div>
 
             <p style={{
-              position:'absolute',bottom:28,
-              fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.35em',
-              textTransform:'uppercase',color:C.faint,fontWeight:300,
+              position: 'absolute', bottom: 20,
+              fontFamily: 'Jost,sans-serif', fontSize: 8, letterSpacing: '0.35em',
+              textTransform: 'uppercase', color: C.faint, fontWeight: 300, margin: 0
             }}>Rumah Tangga · Family First</p>
           </div>
 
-          {/* RIGHT — text */}
-          <div style={{padding:'80px 56px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
-            <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:14}}>Our Story</p>
-            <div style={{width:28,height:1,background:C.rose,marginBottom:20}}/>
-            <h2 style={{fontFamily:"'Fraunces',serif",fontSize:'clamp(32px,3.5vw,48px)',fontWeight:300,color:C.text,lineHeight:1.1,marginBottom:20,fontStyle:'italic'}}>
-              Taste of<br/><em style={{color:C.pinkDark}}>happiness</em>
+          {/* RIGHT — text panel */}
+          <div style={{ padding: '60px clamp(24px, 5vw, 56px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderTop: `1px solid ${C.border}` }}>
+            <p style={{ fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.45em', textTransform: 'uppercase', color: C.pink, fontWeight: 400, marginBottom: 14 }}>Our Story</p>
+            <div style={{ width: 28, height: 1, background: C.rose, marginBottom: 20 }}/>
+            <h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 'clamp(28px, 3.5vw, 48px)', fontWeight: 300, color: C.text, lineHeight: 1.1, marginBottom: 20, fontStyle: 'italic' }}>
+              Taste of<br/><em style={{ color: C.pinkDark }}>happiness</em>
             </h2>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,lineHeight:1.9,color:C.muted,fontWeight:300,marginBottom:14,fontStyle:'italic'}}>
-              "RT" stands for <strong style={{fontStyle:'normal',fontWeight:400,color:C.text}}>Rumah Tangga</strong> — family. We see every customer as family. For family, only the best will do: premium ingredients, authentic recipes, and sincere dedication to the craft.
+            <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, lineHeight: 1.9, color: C.muted, fontWeight: 300, marginBottom: 14, fontStyle: 'italic' }}>
+              "RT" stands for <strong style={{ fontStyle: 'normal', fontWeight: 400, color: C.text }}>Rumah Tangga</strong> — family. We see every customer as family. For family, only the best will do: premium ingredients, authentic recipes, and sincere dedication to the craft.
             </p>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,lineHeight:1.9,color:C.muted,fontWeight:300,marginBottom:32,fontStyle:'italic'}}>
+            <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, lineHeight: 1.9, color: C.muted, fontWeight: 300, marginBottom: 32, fontStyle: 'italic' }}>
               Each loaf, each slice, prepared with the same care we would offer our own loved ones. With 17 outlets across Malaysia, RT Pastry delivers moments of joy, made to be shared.
             </p>
-            <div style={{paddingTop:20,borderTop:`1px solid ${C.border}`}}>
-              <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.28em',textTransform:'uppercase',color:C.faint,fontWeight:300}}>
+            <div style={{ paddingTop: 20, borderTop: `1px solid ${C.border}` }}>
+              <p style={{ fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.28em', textTransform: 'uppercase', color: C.faint, fontWeight: 300, margin: 0 }}>
                 Baking the taste of happiness, with heart.
               </p>
             </div>
@@ -416,398 +463,232 @@ export default function Home() {
         </section>
 
         {/* ══════════════════════════════
-            CIRCLE STATS
+            SCROLL-INTERACTIVE STATS
         ══════════════════════════════ */}
         <CircleStats />
 
         {/* ══════════════════════════════
-            PRODUCTS — image + text alternating rows
-            Add your real images to the `img` field.
-            Falls back to a soft tinted panel if no image.
+            SIGNATURE PRODUCTS DISPLAY
         ══════════════════════════════ */}
-        <section style={{background:'#fff',borderTop:`1px solid ${C.border}`}}>
-
-          {/* header */}
+        <section style={{ background: '#fff', borderTop: `1px solid ${C.border}` }}>
+          {/* section header */}
           <div style={{
-            display:'flex',alignItems:'flex-end',justifyContent:'space-between',
-            padding:'48px 56px 40px',
-            background:C.cream,
-            borderBottom:`1px solid ${C.border}`,
+            display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+            padding: '48px clamp(24px, 5vw, 56px) 40px',
+            background: C.cream,
+            borderBottom: `1px solid ${C.border}`,
           }}>
             <div>
               <p style={{
-                fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',
-                textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:8,
-              }}>Our Creations</p>
+                fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.45em',
+                textTransform: 'uppercase', color: C.pink, fontWeight: 400, marginBottom: 8,
+              }}> Our Creations</p>
               <h2 style={{
-                fontFamily:"'Fraunces',serif",
-                fontSize:'clamp(26px,3vw,40px)',fontWeight:300,
-                color:C.text,lineHeight:1.1,margin:0,fontStyle:'italic',
+                fontFamily: "'Fraunces',serif",
+                fontSize: 'clamp(24px,3vw,40px)', fontWeight: 300,
+                color: C.text, lineHeight: 1.1, margin: 0, fontStyle: 'italic',
               }}>
-                Explore our <em style={{color:C.pinkDark}}>signatures</em>
+                Explore our <em style={{ color: C.pinkDark }}>signatures</em>
               </h2>
             </div>
             <Link to="/menu" style={{
-              fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.2em',
-              textTransform:'uppercase',color:C.faint,textDecoration:'none',fontWeight:400,
+              fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.2em',
+              textTransform: 'uppercase', color: C.faint, textDecoration: 'none', fontWeight: 400,
             }}>View all →</Link>
           </div>
 
           {[
             {
-              tag:'Signature',
-              name:'Fresh Cream Swiss Roll',
-              desc:'Impossibly fluffy sponge wrapped around rich, melt-in-your-mouth Hokkaido fresh cream. Our legendary number one — baked fresh every single morning without exception.',
-              detail:'Bestseller · Daily fresh',
-              img: swissroll,           
-              imgBg:'#f5eef2',
-              reverse:false,
+              tag: 'Signature',
+              name: 'Fresh Cream Swiss Roll',
+              desc: 'Impossibly fluffy sponge wrapped around rich, melt-in-your-mouth Hokkaido fresh cream. Our legendary number one — baked fresh every single morning without exception.',
+              detail: 'Bestseller · Daily fresh',
+              img: swissroll,
+              imgBg: '#f5eef2',
+              reverse: false,
             },
             {
-              tag:'Daily Baked',
-              name:'Artisan Loaves',
-              desc:'Traditional natural fermentation gives our loaves their signature pillowy texture. Baked before sunrise — every loaf carries the warmth of genuine craft.',
-              detail:'Baked before sunrise · Every day',
-              img: loaf,           
-              imgBg:'#f5f0ea',
-              reverse:true,
+              tag: 'Daily Baked',
+              name: 'Artisan Loaves',
+              desc: 'Traditional natural fermentation gives our loaves their signature pillowy texture. Baked before sunrise — every loaf carries the warmth of genuine craft.',
+              detail: 'Baked before sunrise · Every day',
+              img: loaf,
+              imgBg: '#f5f0ea',
+              reverse: true,
             },
             {
-              tag:'Celebration',
-              name:'Layer Cakes',
-              desc:'Crafted with minimalist designs and perfectly balanced sweetness. Available for custom orders — made for your most precious milestones.',
-              detail:'Custom orders welcome',
-              img: layercake,          
-              imgBg:'#eef0f7',
-              reverse:false,
+              tag: 'Celebration',
+              name: 'Layer Cakes',
+              desc: 'Crafted with minimalist designs and perfectly balanced sweetness. Available for custom orders — made for your most precious milestones.',
+              detail: 'Custom orders welcome',
+              img: layercake,
+              imgBg: '#eef0f7',
+              reverse: false,
             },
             {
-              tag:'Morning',
-              name:'Butter Croissants',
-              desc:'Hand-laminated with 72 layers of pure butter. Shatteringly crisp on the outside, impossibly pillowy within — the perfect morning ritual.',
-              detail:'Morning pick · 17 outlets',
-              img: croissant,           
-              imgBg:'#f7f5ea',
-              reverse:true,
+              tag: 'Morning',
+              name: 'Butter Croissants',
+              desc: 'Hand-laminated with 72 layers of pure butter. Shatteringly crisp on the outside, impossibly pillowy within — the perfect morning ritual.',
+              detail: 'Morning pick · 17 outlets',
+              img: croissant,
+              imgBg: '#f7f5ea',
+              reverse: true,
             },
             {
-              tag:'Seasonal',
-              name:'Festive Specials',
-              desc:'Limited-edition creations celebrating the richness of Malaysian festivals and the finest seasonal ingredients. Designed to be savoured — while it lasts.',
-              detail:'Limited edition · Seasonal',
-              img: bakery,           
-              imgBg:'#f3eef7',
-              reverse:false,
+              tag: 'Seasonal',
+              name: 'Festive Specials',
+              desc: 'Limited-edition creations celebrating the richness of Malaysian festivals and the finest seasonal ingredients. Designed to be savoured — while it lasts.',
+              detail: 'Limited edition · Seasonal',
+              img: bakery,
+              imgBg: '#f3eef7',
+              reverse: false,
             },
           ].map(({ tag, name, desc, detail, img, imgBg, reverse }, i) => {
-
-            const isLast = i === 5;
-
-            /* ── image / placeholder panel ── */
-            const imgPanel = (
-              <div
-                key="img"
-                style={{
-                  position:'relative',
-                  overflow:'hidden',
-                  minHeight:300,
-                  background: img ? '#000' : imgBg,
-                }}
-              >
-                {img ? (
-                  /* real product photo */
-                  <img
-                    src={img}
-                    alt={name}
-                    style={{
-                      width:'100%',height:'100%',
-                      objectFit:'cover',
-                      display:'block',
-                      transition:'transform 0.7s cubic-bezier(0.2,0,0.2,1)',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.transform='scale(1.04)'}
-                    onMouseLeave={e => e.currentTarget.style.transform='scale(1)'}
-                  />
-                ) : (
-                  /* soft placeholder until you add the photo */
-                  <div style={{
-                    width:'100%',height:'100%',minHeight:300,
-                    background:imgBg,
-                    display:'flex',flexDirection:'column',
-                    alignItems:'center',justifyContent:'center',
-                    gap:12,
-                  }}>
-                    {/* gentle concentric rings placeholder art */}
-                    <div style={{
-                      position:'relative',
-                      width:120,height:120,
-                      display:'flex',alignItems:'center',justifyContent:'center',
-                    }}>
-                      <div style={{position:'absolute',width:120,height:120,borderRadius:'50%',border:`1px solid rgba(180,100,130,0.12)`}}/>
-                      <div style={{position:'absolute',width:80,height:80,borderRadius:'50%',border:`1px solid rgba(180,100,130,0.1)`}}/>
-                      <div style={{width:32,height:32,borderRadius:'50%',background:'rgba(180,100,130,0.12)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                        <div style={{width:10,height:10,borderRadius:'50%',background:'rgba(180,100,130,0.3)'}}/>
-                      </div>
-                    </div>
-                    <p style={{
-                      fontFamily:'Jost,sans-serif',fontSize:8,
-                      letterSpacing:'0.28em',textTransform:'uppercase',
-                      color:'rgba(180,100,130,0.3)',fontWeight:300,
-                    }}>Image coming soon</p>
-                  </div>
-                )}
-
-                {/* bottom-right item number — always visible */}
-                <div style={{
-                  position:'absolute',bottom:16,right:20,
-                  fontFamily:"'Fraunces',serif",fontStyle:'italic',
-                  fontSize:40,fontWeight:300,lineHeight:1,
-                  color: img ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.07)',
-                  pointerEvents:'none',userSelect:'none',
-                }}>{String(i+1).padStart(2,'0')}</div>
-
-                {/* soft bottom gradient on real photos */}
-                {img && (
-                  <div style={{
-                    position:'absolute',bottom:0,left:0,right:0,height:'35%',
-                    background:'linear-gradient(to top,rgba(45,31,40,0.18),transparent)',
-                    pointerEvents:'none',
-                  }}/>
-                )}
-              </div>
-            );
-
-            /* ── text panel ── */
-            const txtPanel = (
-              <div
-                key="txt"
-                style={{
-                  padding:'48px 52px',
-                  display:'flex',flexDirection:'column',justifyContent:'center',
-                  background:'#fff',
-                  borderLeft:  reverse ? 'none' : `1px solid ${C.border}`,
-                  borderRight: reverse ? `1px solid ${C.border}` : 'none',
-                }}
-              >
-                <p style={{
-                  fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.38em',
-                  textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:14,
-                }}>{tag}</p>
-
-                <h3 style={{
-                  fontFamily:"'Cormorant Garamond',serif",
-                  fontSize:'clamp(24px,2.8vw,34px)',
-                  fontWeight:400,color:C.text,
-                  marginBottom:16,lineHeight:1.12,
-                }}>{name}</h3>
-
-                <div style={{width:28,height:1,background:C.rose,marginBottom:18}}/>
-
-                <p style={{
-                  fontFamily:"'Cormorant Garamond',serif",
-                  fontSize:15,color:C.muted,fontWeight:300,
-                  lineHeight:1.9,fontStyle:'italic',marginBottom:24,
-                }}>{desc}</p>
-
-                <div style={{
-                  display:'flex',alignItems:'center',
-                  justifyContent:'space-between',
-                  paddingTop:18,borderTop:`1px solid ${C.border}`,
-                }}>
-                  <p style={{
-                    fontFamily:'Jost,sans-serif',fontSize:8,letterSpacing:'0.22em',
-                    textTransform:'uppercase',color:C.faint,fontWeight:300,
-                  }}>{detail}</p>
-                  <span style={{
-                    fontFamily:"'Cormorant Garamond',serif",
-                    fontStyle:'italic',fontSize:20,
-                    color:'rgba(180,100,130,0.2)',
-                  }}>→</span>
-                </div>
-              </div>
-            );
+            const isLast = i === 4;
+            const gridClass = reverse ? "rt-product-grid rt-product-grid-reverse" : "rt-product-grid rt-product-grid-normal";
 
             return (
-              <div
-                key={i}
-                style={{
-                  display:'grid',
-                  gridTemplateColumns: reverse ? '3fr 2fr' : '2fr 3fr',
-                  borderBottom: isLast ? 'none' : `1px solid ${C.border}`,
-                }}
-              >
-                {reverse ? [txtPanel, imgPanel] : [imgPanel, txtPanel]}
+              <div key={i} className={gridClass} style={{ borderBottom: isLast ? 'none' : `1px solid ${C.border}` }}>
+                {/* ── Image Panel ── */}
+                <div className="rt-img-order-handler" style={{ position: 'relative', overflow: 'hidden', minHeight: 320, background: img ? '#000' : imgBg }}>
+                  {img ? (
+                    <img src={img} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.7s ease' }}
+                         onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                         onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'} />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', minHeight: 320, background: imgBg, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+                      <div style={{ position: 'relative', width: 120, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ position: 'absolute', width: 120, height: 120, borderRadius: '50%', border: `1px solid rgba(180,100,130,0.12)` }}/>
+                        <div style={{ position: 'absolute', width: 80, height: 80, borderRadius: '50%', border: `1px solid rgba(180,100,130,0.1)` }}/>
+                      </div>
+                      <p style={{ fontFamily: 'Jost,sans-serif', fontSize: 8, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(180,100,130,0.3)', fontWeight: 300, margin: 0 }}>Image coming soon</p>
+                    </div>
+                  )}
+                  {img && <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(to top,rgba(45,31,40,0.15),transparent)', pointerEvents: 'none' }}/>}
+                </div>
+
+                {/* ── Text Panel ── */}
+                <div className="rt-text-order-handler" style={{ 
+                  padding: 'clamp(40px, 6vw, 64px) clamp(24px, 5vw, 52px)', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'center', 
+                  background: '#fff', 
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}>
+                  {/* Floating Watermark Ghost Number */}
+                  <div style={{ 
+                    position: 'absolute', 
+                    top: '-10px', 
+                    right: reverse ? 'auto' : '20px',
+                    left: reverse ? '20px' : 'auto',
+                    fontFamily: "'Fraunces',serif", 
+                    fontStyle: 'italic', 
+                    fontSize: 'clamp(90px, 12vw, 140px)', 
+                    fontWeight: 300, 
+                    lineHeight: 1, 
+                    color: 'rgba(180,100,130,0.05)', 
+                    pointerEvents: 'none', 
+                    userSelect: 'none',
+                    zIndex: 0
+                  }}>{String(i+1).padStart(2, '0')}</div>
+
+                  {/* Content Overlay Mask */}
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <p style={{ fontFamily: 'Jost,sans-serif', fontSize: 8, letterSpacing: '0.38em', textTransform: 'uppercase', color: C.pink, fontWeight: 400, marginBottom: 14 }}>{tag}</p>
+                    <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 'clamp(22px,2.8vw,34px)', fontWeight: 400, color: C.text, marginBottom: 16, lineHeight: 1.12 }}>{name}</h3>
+                    <div style={{ width: 28, height: 1, background: C.rose, marginBottom: 18 }}/>
+                    <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 15, color: C.muted, fontWeight: 300, lineHeight: 1.9, fontStyle: 'italic', marginBottom: 24 }}>{desc}</p>
+                    
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 18, borderTop: `1px solid ${C.border}` }}>
+                      <p style={{ fontFamily: 'Jost,sans-serif', fontSize: 8, letterSpacing: '0.22em', textTransform: 'uppercase', color: C.faint, fontWeight: 300, margin: 0 }}>{detail}</p>
+                      <span style={{ fontFamily: "'Cormorant Garamond',serif", fontStyle: 'italic', fontSize: 20, color: 'rgba(180,100,130,0.3)' }}>→</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}
-
         </section>
 
         {/* ══════════════════════════════
-            OUTLETS — Option B: ghost number cards
+            OUTLET GRID MATRIX
         ══════════════════════════════ */}
-        <section style={{background:'#fff',borderTop:`1px solid ${C.border}`}}>
-
-          {/* header */}
+        <section style={{ background: '#fff', borderTop: `1px solid ${C.border}` }}>
           <div style={{
-            display:'flex',alignItems:'flex-end',justifyContent:'space-between',
-            padding:'48px 56px 40px',
-            background:C.cream,
-            borderBottom:`1px solid ${C.border}`,
+            display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+            padding: '48px clamp(24px, 5vw, 56px) 40px',
+            background: C.cream,
+            borderBottom: `1px solid ${C.border}`,
           }}>
             <div>
-              <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:8}}>Find Us</p>
-              <h2 style={{fontFamily:"'Fraunces',serif",fontSize:'clamp(26px,3vw,40px)',fontWeight:300,color:C.text,lineHeight:1.1,margin:0,fontStyle:'italic'}}>
-                17 outlets across <em style={{color:C.pinkDark}}>Klang Valley</em>
+              <p style={{ fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.45em', textTransform: 'uppercase', color: C.pink, fontWeight: 400, marginBottom: 8 }}>Find Us</p>
+              <h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 'clamp(24px,3vw,40px)', fontWeight: 300, color: C.text, lineHeight: 1.1, margin: 0, fontStyle: 'italic' }}>
+                17 outlets across <em style={{ color: C.pinkDark }}>Klang Valley</em>
               </h2>
             </div>
-            <Link to="/outlets" style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.2em',textTransform:'uppercase',color:C.faint,textDecoration:'none',fontWeight:400}}>
-              All outlets →
-            </Link>
+            <Link to="/outlets" style={{ fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase', color: C.faint, textDecoration: 'none', fontWeight: 400 }}>All outlets →</Link>
           </div>
 
-          {/* 3-col ghost number grid */}
-          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)'}}>
+          <div className="rt-outlet-grid">
             {[
-              {n:'01', name:'Cheras',       addr:'Leisure Mall, Jalan Manis 6',    area:'Kuala Lumpur'},
-              {n:'02', name:'Kepong',       addr:'Metro Prima Shopping Centre',    area:'Kuala Lumpur'},
-              {n:'03', name:'Puchong',      addr:'IOI Mall Puchong',               area:'Selangor'},
-              {n:'04', name:'Shah Alam',    addr:'AEON Shah Alam',                 area:'Selangor'},
-              {n:'05', name:'Subang Jaya',  addr:'Empire Shopping Gallery',        area:'Selangor'},
-              {n:'06', name:'Petaling Jaya',addr:'Jaya Shopping Centre',           area:'Selangor'},
-            ].map(({n, name, addr, area}, i) => {
-              const isLastRow  = i >= 3;
-              const isLastCol  = i % 3 === 2;
-              return (
-                <div
-                  key={i}
-                  style={{
-                    padding:'32px 36px',
-                    borderRight:  isLastCol  ? 'none' : `1px solid ${C.border}`,
-                    borderBottom: isLastRow  ? 'none' : `1px solid ${C.border}`,
-                    position:'relative',
-                    overflow:'hidden',
-                    background:'#fff',
-                    transition:'background .25s',
-                    cursor:'default',
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.background = '#fdf8fb'}
-                  onMouseLeave={e => e.currentTarget.style.background = '#fff'}
-                >
-                  {/* large ghost number behind everything */}
-                  <div style={{
-                    position:'absolute',
-                    top:-8, right:8,
-                    fontFamily:"'Fraunces',serif",
-                    fontStyle:'italic',
-                    fontSize:80,
-                    fontWeight:300,
-                    color:'rgba(180,100,130,0.06)',
-                    lineHeight:1,
-                    userSelect:'none',
-                    pointerEvents:'none',
-                  }}>{n}</div>
-
-                  {/* small pink dot accent */}
-                  <div style={{
-                    width:5, height:5, borderRadius:'50%',
-                    background:'rgba(184,85,128,0.25)',
-                    marginBottom:16,
-                  }}/>
-
-                  {/* small numbered label */}
-                  <p style={{
-                    fontFamily:"'Fraunces',serif",
-                    fontStyle:'italic',
-                    fontSize:13,
-                    fontWeight:300,
-                    color:'rgba(180,100,130,0.4)',
-                    marginBottom:12,
-                    lineHeight:1,
-                  }}>{n}</p>
-
-                  {/* outlet name */}
-                  <h4 style={{
-                    fontFamily:'Jost,sans-serif',
-                    fontSize:15,
-                    fontWeight:500,
-                    color:C.text,
-                    marginBottom:6,
-                    letterSpacing:'0.02em',
-                  }}>{name}</h4>
-
-                  {/* address */}
-                  <p style={{
-                    fontFamily:"'Cormorant Garamond',serif",
-                    fontSize:13,
-                    color:C.muted,
-                    fontStyle:'italic',
-                    fontWeight:300,
-                    marginBottom:12,
-                    lineHeight:1.5,
-                  }}>{addr}</p>
-
-                  {/* area tag */}
-                  <p style={{
-                    fontFamily:'Jost,sans-serif',
-                    fontSize:8,
-                    letterSpacing:'0.22em',
-                    textTransform:'uppercase',
-                    color:C.faint,
-                    fontWeight:300,
-                  }}>{area}</p>
-
-                </div>
-              );
-            })}
+              { n: '01', name: 'Cheras',       addr: 'Leisure Mall, Jalan Manis 6',    area: 'Kuala Lumpur' },
+              { n: '02', name: 'Kepong',       addr: 'Metro Prima Shopping Centre',    area: 'Kuala Lumpur' },
+              { n: '03', name: 'Puchong',      addr: 'IOI Mall Puchong',               area: 'Selangor' },
+              { n: '04', name: 'Shah Alam',    addr: 'AEON Shah Alam',                 area: 'Selangor' },
+              { n: '05', name: 'Subang Jaya',  addr: 'Empire Shopping Gallery',        area: 'Selangor' },
+              { n: '06', name: 'Petaling Jaya', addr: 'Jaya Shopping Centre',           area: 'Selangor' },
+            ].map(({ n, name, addr, area }, i) => (
+              <div key={i} style={{
+                padding: '32px 36px',
+                borderRight: `1px solid ${C.border}`,
+                borderBottom: `1px solid ${C.border}`,
+                position: 'relative', overflow: 'hidden', background: '#fff', transition: 'background .25s', cursor: 'default'
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = '#fdf8fb'}
+              onMouseLeave={e => e.currentTarget.style.background = '#fff'}>
+                <div style={{ position: 'absolute', top: -8, right: 8, fontFamily: "'Fraunces',serif", fontStyle: 'italic', fontSize: 80, fontWeight: 300, color: 'rgba(180,100,130,0.06)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>{n}</div>
+                <div style={{ width: 5, height: 5, borderRadius: '50%', background: 'rgba(184,85,128,0.25)', marginBottom: 16 }}/>
+                <p style={{ fontFamily: "'Fraunces',serif", fontStyle: 'italic', fontSize: 13, fontWeight: 300, color: 'rgba(180,100,130,0.4)', marginBottom: 12, lineHeight: 1 }}>{n}</p>
+                <h4 style={{ fontFamily: 'Jost,sans-serif', fontSize: 15, fontWeight: 500, color: C.text, marginBottom: 6, letterSpacing: '0.02em' }}>{name}</h4>
+                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 13, color: C.muted, fontStyle: 'italic', fontWeight: 300, marginBottom: 12, lineHeight: 1.5 }}>{addr}</p>
+                <p style={{ fontFamily: 'Jost,sans-serif', fontSize: 8, letterSpacing: '0.22em', textTransform: 'uppercase', color: C.faint, fontWeight: 300, margin: 0 }}>{area}</p>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* ══════════════════════════════
-            SHOP CTA — very soft
+            ONLINE STORE CTA SECTION
         ══════════════════════════════ */}
         <section style={{
-          background:`linear-gradient(135deg,#f5edf2 0%,${C.cream2} 50%,#edf0f5 100%)`,
-          borderTop:`1px solid ${C.border}`,
-          padding:'80px 56px',
-          display:'grid',gridTemplateColumns:'1fr 1fr',
-          alignItems:'center',gap:64,
-          position:'relative',overflow:'hidden',
+          background: `linear-gradient(135deg,#f5edf2 0%,${C.cream2} 50%,#edf0f5 100%)`,
+          borderTop: `1px solid ${C.border}`,
+          padding: '80px clamp(24px, 5vw, 56px)',
+          position: 'relative', overflow: 'hidden',
         }}>
-          {/* ghost text */}
-          <div style={{
-            position:'absolute',right:-20,top:-20,
-            fontFamily:"'Fraunces',serif",fontStyle:'italic',
-            fontSize:220,fontWeight:300,
-            color:`rgba(180,100,130,0.04)`,lineHeight:1,
-            pointerEvents:'none',letterSpacing:'-0.05em',whiteSpace:'nowrap',
-          }}>RT Pastry</div>
+          <div style={{ position: 'absolute', right: -20, top: -20, fontFamily: "'Fraunces',serif", fontStyle: 'italic', fontSize: 'clamp(120px, 18vw, 220px)', fontWeight: 300, color: `rgba(180,100,130,0.04)`, lineHeight: 1, pointerEvents: 'none', letterSpacing: '-0.05em', whiteSpace: 'nowrap' }}>RT Pastry</div>
 
-          <div style={{position:'relative',zIndex:1}}>
-            <p style={{fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.45em',textTransform:'uppercase',color:C.pink,fontWeight:400,marginBottom:12}}>Online Shop</p>
-            <h2 style={{fontFamily:"'Fraunces',serif",fontSize:'clamp(30px,4vw,52px)',fontWeight:300,color:C.text,lineHeight:1.05,fontStyle:'italic',margin:0}}>
-              Visit our<br/><em style={{color:C.pinkDark}}>online shop</em>
-            </h2>
-          </div>
-
-          <div style={{position:'relative',zIndex:1}}>
-            <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,color:C.muted,fontWeight:300,lineHeight:1.8,fontStyle:'italic',maxWidth:360,marginBottom:28}}>
-              More exciting products coming soon. Order fresh, delivered to your door — or pick up at any of our 17 outlets across Klang Valley.
-            </p>
-            <button style={{
-              padding:'12px 32px',
-              background:'transparent',
-              border:`1px solid ${C.borderMid}`,
-              color:C.pinkDark,
-              fontFamily:'Jost,sans-serif',fontSize:9,letterSpacing:'0.22em',
-              textTransform:'uppercase',fontWeight:500,
-              cursor:'pointer',borderRadius:100,
-              transition:'all .3s',
-            }}
-            onMouseEnter={e=>{e.currentTarget.style.background=C.pinkDark;e.currentTarget.style.color='#fff';e.currentTarget.style.borderColor=C.pinkDark;}}
-            onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.color=C.pinkDark;e.currentTarget.style.borderColor=C.borderMid;}}>
-              Add to Cart
-            </button>
+          <div className="rt-shop-grid" style={{ position: 'relative', zIndex: 1 }}>
+            <div>
+              <p style={{ fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.45em', textTransform: 'uppercase', color: C.pink, fontWeight: 400, marginBottom: 12 }}>Online Shop</p>
+              <h2 style={{ fontFamily: "'Fraunces',serif", fontSize: 'clamp(28px,4vw,52px)', fontWeight: 300, color: C.text, lineHeight: 1.05, fontStyle: 'italic', margin: 0 }}> Visit our<br/><em style={{ color: C.pinkDark }}>online shop</em> </h2>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
+              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, color: C.muted, fontWeight: 300, lineHeight: 1.8, fontStyle: 'italic', maxWidth: 360, marginBottom: 28, marginTop: 0 }}>
+                More exciting products coming soon. Order fresh, delivered to your door — or pick up at any of our 17 outlets across Klang Valley.
+              </p>
+              <button style={{
+                padding: '12px 32px', background: 'transparent', border: `1px solid ${C.borderMid}`, color: C.pinkDark,
+                fontFamily: 'Jost,sans-serif', fontSize: 9, letterSpacing: '0.22em', textTransform: 'uppercase', fontWeight: 500,
+                cursor: 'pointer', borderRadius: 100, transition: 'all .3s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = C.pinkDark; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = C.pinkDark; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = C.pinkDark; e.currentTarget.style.borderColor = C.borderMid; }}>
+                Add to Cart
+              </button>
+            </div>
           </div>
         </section>
 
